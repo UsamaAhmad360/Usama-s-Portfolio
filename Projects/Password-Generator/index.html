@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Toolkit</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Password Toolkit 🔐</h1>
+
+    <!-- Navigation -->
+    <button onclick="showTab('generator')">Generate Password</button>
+    <button onclick="showTab('custom')">Customize Password</button>
+    <button onclick="showTab('strength')">Password Strength</button>
+    <button onclick="showTab('stronger')">Make Password Stronger</button>
+    <button onclick="showTab('multi')">Multi-Website Generator</button>
+
+    <!-- Generator -->
+    <div id="generator" class="tab-content active"></div>
+
+    <!-- Customize -->
+    <div id="custom" class="tab-content">
+      <input type="number" id="length" min="8" max="32" placeholder="Password Length (8 - 32)" />
+      <input type="number" id="numPasswords" min="1" max="100" placeholder="Number of Passwords" />
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="symbols" checked> Symbols</label>
+        <label><input type="checkbox" id="numbers" checked> Numbers</label>
+        <label><input type="checkbox" id="uppercase" checked> Uppercase</label>
+        <label><input type="checkbox" id="lowercase" checked> Lowercase</label>
+        <label><input type="checkbox" id="avoidSimilar"> Avoid Similar</label>
+      </div>
+      <button onclick="generateCustomPassword()">Generate Custom</button>
+    </div>
+
+    <!-- Strength -->
+    <div id="strength" class="tab-content">
+      <input type="text" id="passwordToCheck" placeholder="Enter your password" />
+      <button onclick="checkStrength()">Check Strength</button>
+      <div class="result" id="strengthResult"></div>
+    </div>
+
+    <!-- Make Stronger -->
+    <div id="stronger" class="tab-content">
+      <input type="text" id="passwordToImprove" placeholder="Password to improve" />
+      <button onclick="makeStrongerNow()">Make Stronger</button>
+    </div>
+
+    <!-- Multi-Site -->
+    <div id="multi" class="tab-content">
+      <textarea id="websitesInput" rows="5" placeholder="Websites, one per line"></textarea>
+      <input type="number" id="multiLength" min="8" max="32" placeholder="Password Length" />
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="multiSymbols" checked> Symbols</label>
+        <label><input type="checkbox" id="multiNumbers" checked> Numbers</label>
+        <label><input type="checkbox" id="multiUppercase" checked> Uppercase</label>
+        <label><input type="checkbox" id="multiLowercase" checked> Lowercase</label>
+        <label><input type="checkbox" id="multiAvoidSimilar"> Avoid Similar</label>
+      </div>
+      <button onclick="generatePasswords()">Generate Passwords</button>
+      <button onclick="exportToCSV()">Download CSV</button>
+      <div class="result" id="output"></div>
+    </div>
+
+    <div class="result" id="passwordDisplay"></div>
+  </div>
+
+ <script src="script.js"></script>
+</body>
+</html>
