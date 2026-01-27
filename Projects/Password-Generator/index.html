@@ -3,69 +3,852 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Password Toolkit</title>
-<link rel="stylesheet" href="styles.css">
+  <title>Password Toolkit | Usama's Projects</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Generate secure passwords, customize rules, check password strength, improve weak passwords, and create passwords for multiple websites—fast and privacy-friendly, all in your browser." />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Usama Ahmad" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="canonical" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html" />
+
+  <!-- Favicon (Usama's Portfolio) -->
+  <link rel="icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" sizes="any" />
+  <link rel="shortcut icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Usama's Projects" />
+  <meta property="og:title" content="Password Toolkit | Usama's Projects" />
+  <meta property="og:description" content="Generate secure passwords, customize rules, check strength, improve passwords, and create passwords for multiple websites." />
+  <meta property="og:url" content="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Password Toolkit | Usama's Projects" />
+  <meta name="twitter:description" content="Generate secure passwords, customize rules, check strength, improve passwords, and create passwords for multiple websites." />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Password Toolkit",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any",
+      "description": "Generate secure passwords, customize rules, check password strength, improve weak passwords, and generate passwords for multiple websites.",
+      "author": {
+        "@type": "Person",
+        "name": "Usama Ahmad",
+        "url": "https://usamaahmad360.github.io/Usama-s-Portfolio/"
+      }
+    }
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --container-dark: #1e293b;
+      --accent: #06b6d4; /* Cyan-500 */
+      --accent-hover: #0891b2; /* Cyan-600 */
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --input-bg: #334155;
+      --border-color: #475569;
+      --card-bg: rgba(30, 41, 59, 0.7);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      margin: 0;
+      /* Prevent horizontal scroll on mobile */
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    .main-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px; /* Space for navbar */
+      padding-bottom: 40px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .app-container {
+      background-color: var(--container-dark);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (min-width: 640px) {
+      .app-container { padding: 2rem; }
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--text-main);
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+      font-size: 1.75rem;
+      background: linear-gradient(to right, #22d3ee, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Last item takes full width on odd count in 2-col grid (mobile) */
+    .tabs button:last-child:nth-child(odd) {
+      grid-column: span 2;
+    }
+
+    @media (min-width: 640px) {
+      .tabs {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+      .tabs button:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+    }
+
+    .tab-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.75rem 0.5rem;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      background-color: rgba(51, 65, 85, 0.4);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    @media (min-width: 640px) {
+      .tab-btn {
+        flex-direction: row;
+        font-size: 0.9rem;
+      }
+    }
+
+    .tab-btn:hover {
+      background-color: rgba(51, 65, 85, 0.8);
+      color: var(--text-main);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background-color: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.1);
+    }
+
+    .tab-btn i { font-size: 1.1em; }
+
+    /* Buttons */
+    .primary-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #0f172a;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      margin-top: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.2);
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.3);
+    }
+
+    .primary-btn:active { transform: translateY(0px); }
+
+    .secondary-btn {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--text-muted);
+      color: var(--text-main);
+    }
+
+    /* Inputs */
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .row.cols-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    label.field-label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background-color: var(--input-bg);
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+    }
+
+    /* Checkboxes */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      margin: 1rem 0;
+      padding: 0.5rem 0;
+    }
+
+    .checkbox-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      width: 1.15em;
+      height: 1.15em;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--input-bg);
+      display: grid;
+      place-content: center;
+      margin: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    input[type="checkbox"]::before {
+      content: "";
+      width: 0.65em;
+      height: 0.65em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em white; /* Checkmark color */
+      transform-origin: center;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    input[type="checkbox"]:checked {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    input[type="checkbox"]:checked::before {
+      transform: scale(1);
+    }
+
+    /* Content Area */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .tab-content.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Results */
+    .result-card {
+      margin-top: 1.5rem;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .result-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .result-value {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--accent);
+      font-size: 1.2rem;
+      word-break: break-all;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .result-list ol {
+      padding-left: 20px;
+      margin: 0;
+      text-align: left;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+    
+    .result-list li {
+      margin-bottom: 0.5rem;
+      word-wrap: break-word;
+    }
+    
+    .result-list li strong { color: var(--accent); }
+
+    /* Footer */
+    .footer-link {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-link a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer-link a:hover { text-decoration: underline; }
+
+    /* Strength Meter Colors */
+    .strength-weak { color: #ef4444; }
+    .strength-medium { color: #f59e0b; }
+    .strength-strong { color: #22c55e; }
+
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Password Toolkit 🔐</h1>
 
-    <!-- Navigation -->
-    <button onclick="showTab('generator')">Generate Password</button>
-    <button onclick="showTab('custom')">Customize Password</button>
-    <button onclick="showTab('strength')">Password Strength</button>
-    <button onclick="showTab('stronger')">Make Password Stronger</button>
-    <button onclick="showTab('multi')">Multi-Website Generator</button>
+  <!-- Navbar -->
+  <nav id="topNav" class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-700/50">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="h-16 flex items-center justify-between">
+        <a class="flex items-center gap-2 text-slate-100 font-semibold tracking-wide no-underline group" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">
+          <span class="w-9 h-9 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-400/20 transition-colors">
+            <i class="fa-solid fa-code"></i>
+          </span>
+          <span class="hidden sm:inline group-hover:text-cyan-400 transition-colors">Usama's Projects</span>
+          <span class="sm:hidden group-hover:text-cyan-400 transition-colors">Projects</span>
+        </a>
 
-    <!-- Generator -->
-    <div id="generator" class="tab-content active"></div>
+        <div class="hidden md:flex items-center gap-2">
+          <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 font-medium text-sm no-underline" href="#" aria-current="page">
+            <i class="fa-solid fa-key mr-1.5"></i> Password Toolkit
+          </a>
+          <a class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition text-sm font-medium no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+            <i class="fa-solid fa-qrcode mr-1.5"></i> QR Gen
+          </a>
+          <a class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition text-sm font-medium no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+            <i class="fa-solid fa-link mr-1.5"></i> URL Shortener
+          </a>
+        </div>
 
-    <!-- Customize -->
-    <div id="custom" class="tab-content">
-      <input type="number" id="length" min="8" max="32" placeholder="Password Length (8 - 32)" />
-      <input type="number" id="numPasswords" min="1" max="100" placeholder="Number of Passwords" />
-      <div class="checkbox-group">
-        <label><input type="checkbox" id="symbols" checked> Symbols</label>
-        <label><input type="checkbox" id="numbers" checked> Numbers</label>
-        <label><input type="checkbox" id="uppercase" checked> Uppercase</label>
-        <label><input type="checkbox" id="lowercase" checked> Lowercase</label>
-        <label><input type="checkbox" id="avoidSimilar"> Avoid Similar</label>
+        <button id="navToggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/60 bg-slate-900/40 text-slate-100 hover:bg-slate-800/60 transition cursor-pointer" aria-label="Menu" aria-expanded="false">
+          <i id="navIcon" class="fa-solid fa-bars"></i>
+        </button>
       </div>
-      <button onclick="generateCustomPassword()">Generate Custom</button>
     </div>
 
-    <!-- Strength -->
-    <div id="strength" class="tab-content">
-      <input type="text" id="passwordToCheck" placeholder="Enter your password" />
-      <button onclick="checkStrength()">Check Strength</button>
-      <div class="result" id="strengthResult"></div>
-    </div>
-
-    <!-- Make Stronger -->
-    <div id="stronger" class="tab-content">
-      <input type="text" id="passwordToImprove" placeholder="Password to improve" />
-      <button onclick="makeStrongerNow()">Make Stronger</button>
-    </div>
-
-    <!-- Multi-Site -->
-    <div id="multi" class="tab-content">
-      <textarea id="websitesInput" rows="5" placeholder="Websites, one per line"></textarea>
-      <input type="number" id="multiLength" min="8" max="32" placeholder="Password Length" />
-      <div class="checkbox-group">
-        <label><input type="checkbox" id="multiSymbols" checked> Symbols</label>
-        <label><input type="checkbox" id="multiNumbers" checked> Numbers</label>
-        <label><input type="checkbox" id="multiUppercase" checked> Uppercase</label>
-        <label><input type="checkbox" id="multiLowercase" checked> Lowercase</label>
-        <label><input type="checkbox" id="multiAvoidSimilar"> Avoid Similar</label>
+    <div id="mobileNav" class="md:hidden hidden border-t border-slate-700/50 bg-slate-950/95 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
+        <a class="px-3 py-2.5 rounded-lg bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 font-medium flex items-center no-underline" href="#" aria-current="page">
+          <i class="fa-solid fa-key w-6 text-center"></i> Password Toolkit
+        </a>
+        <a class="px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition font-medium flex items-center no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+          <i class="fa-solid fa-qrcode w-6 text-center"></i> QR Generator
+        </a>
+        <a class="px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition font-medium flex items-center no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+          <i class="fa-solid fa-link w-6 text-center"></i> URL Shortener
+        </a>
       </div>
-      <button onclick="generatePasswords()">Generate Passwords</button>
-      <button onclick="exportToCSV()">Download CSV</button>
-      <div class="result" id="output"></div>
     </div>
+  </nav>
 
-    <div class="result" id="passwordDisplay"></div>
-  </div>
+  <main class="main-wrapper">
+    <div class="app-container" itemscope itemtype="https://schema.org/WebApplication">
+      <h1 itemprop="name">Password Toolkit</h1>
+      <p class="subtitle" itemprop="description">Secure, offline password tools for everyone.</p>
 
- <script src="script.js"></script>
+      <!-- Tabs -->
+      <div class="tabs" role="tablist" aria-label="Tools">
+        <button class="tab-btn" type="button" data-tab="generator" role="tab" aria-selected="true">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+        </button>
+        <button class="tab-btn" type="button" data-tab="custom" role="tab" aria-selected="false">
+          <i class="fa-solid fa-sliders"></i> Custom
+        </button>
+        <button class="tab-btn" type="button" data-tab="strength" role="tab" aria-selected="false">
+          <i class="fa-solid fa-shield-halved"></i> Strength
+        </button>
+        <button class="tab-btn" type="button" data-tab="stronger" role="tab" aria-selected="false">
+          <i class="fa-solid fa-bolt"></i> Improve
+        </button>
+        <button class="tab-btn" type="button" data-tab="multi" role="tab" aria-selected="false">
+          <i class="fa-solid fa-layer-group"></i> Bulk
+        </button>
+      </div>
+
+      <!-- Generator -->
+      <section id="generator" class="tab-content active" role="tabpanel">
+        <div class="row cols-2">
+          <div>
+            <label class="field-label" for="quickLength">Length</label>
+            <input type="number" id="quickLength" min="8" max="64" value="16" inputmode="numeric" />
+          </div>
+          <div>
+            <label class="field-label">Options</label>
+            <div class="checkbox-group" style="margin: 0.25rem 0 0;">
+              <label class="checkbox-container"><input type="checkbox" id="quickSymbols" checked> Symbols</label>
+              <label class="checkbox-container"><input type="checkbox" id="quickNumbers" checked> Numbers</label>
+              <label class="checkbox-container"><input type="checkbox" id="quickUppercase" checked> Caps</label>
+            </div>
+          </div>
+        </div>
+        <button class="primary-btn" type="button" id="quickGenerateBtn">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Password
+        </button>
+        
+        <div class="result-card" aria-live="polite">
+          <span class="result-label">Your Password</span>
+          <div class="result-value" id="passwordDisplay"></div>
+        </div>
+        <button class="secondary-btn" type="button" id="quickCopyBtn">
+          <i class="fa-regular fa-copy"></i> Copy Password
+        </button>
+      </section>
+
+      <!-- Customize -->
+      <section id="custom" class="tab-content" role="tabpanel">
+        <div class="row cols-2">
+          <div>
+            <label class="field-label" for="length">Length (8-64)</label>
+            <input type="number" id="length" min="8" max="64" value="20" />
+          </div>
+          <div>
+            <label class="field-label" for="numPasswords">Quantity</label>
+            <input type="number" id="numPasswords" min="1" max="50" value="5" />
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-container"><input type="checkbox" id="symbols" checked> Symbols</label>
+          <label class="checkbox-container"><input type="checkbox" id="numbers" checked> Numbers</label>
+          <label class="checkbox-container"><input type="checkbox" id="uppercase" checked> Uppercase</label>
+          <label class="checkbox-container"><input type="checkbox" id="lowercase" checked> Lowercase</label>
+          <label class="checkbox-container"><input type="checkbox" id="avoidSimilar"> Avoid Similar (l, 1, O, 0)</label>
+        </div>
+
+        <button class="primary-btn" type="button" onclick="generateCustomPassword()">
+          <i class="fa-solid fa-sliders"></i> Generate Custom
+        </button>
+        
+        <div class="result-card" id="customResultCard" style="display:none; text-align: left;">
+           <span class="result-label" style="text-align: center;">Generated Passwords</span>
+           <div class="result-list" id="customOutput"></div>
+        </div>
+        <button class="secondary-btn" type="button" id="customCopyFirst" style="display:none">
+          <i class="fa-regular fa-copy"></i> Copy First
+        </button>
+      </section>
+
+      <!-- Strength -->
+      <section id="strength" class="tab-content" role="tabpanel">
+        <label class="field-label" for="passwordToCheck">Password Analysis</label>
+        <input type="text" id="passwordToCheck" placeholder="Paste or type password..." autocomplete="off" />
+        <button class="primary-btn" type="button" onclick="checkStrength()">
+          <i class="fa-solid fa-stethoscope"></i> Analyze Strength
+        </button>
+        
+        <div class="result-card" aria-live="polite">
+          <span class="result-label">Verdict</span>
+          <div class="result-value" id="strengthResult">--</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+            Checks length, complexity, and character variety.
+          </div>
+        </div>
+      </section>
+
+      <!-- Make Stronger -->
+      <section id="stronger" class="tab-content" role="tabpanel">
+        <label class="field-label" for="passwordToImprove">Weak Password</label>
+        <input type="text" id="passwordToImprove" placeholder="e.g. fluffycat" autocomplete="off" />
+        <button class="primary-btn" type="button" onclick="makeStrongerNow()">
+          <i class="fa-solid fa-bolt"></i> Supercharge It
+        </button>
+        
+        <div class="result-card" aria-live="polite">
+          <span class="result-label">Improved Version</span>
+          <div class="result-value" id="improvedDisplay"></div>
+        </div>
+        <button class="secondary-btn" type="button" id="improveCopy">
+          <i class="fa-regular fa-copy"></i> Copy Result
+        </button>
+      </section>
+
+      <!-- Multi-Site -->
+      <section id="multi" class="tab-content" role="tabpanel">
+        <label class="field-label" for="websitesInput">Websites (One per line)</label>
+        <textarea id="websitesInput" rows="5" placeholder="facebook.com&#10;gmail.com&#10;twitter.com"></textarea>
+
+        <div class="row cols-2">
+           <div>
+              <label class="field-label" for="multiLength">Length</label>
+              <input type="number" id="multiLength" min="8" max="64" value="16" />
+           </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-container"><input type="checkbox" id="multiSymbols" checked> Sym</label>
+          <label class="checkbox-container"><input type="checkbox" id="multiNumbers" checked> Num</label>
+          <label class="checkbox-container"><input type="checkbox" id="multiUppercase" checked> Cap</label>
+          <label class="checkbox-container"><input type="checkbox" id="multiAvoidSimilar"> No Similar</label>
+        </div>
+
+        <div class="row cols-2">
+          <button class="primary-btn" type="button" onclick="generatePasswords()">
+            <i class="fa-solid fa-gears"></i> Generate All
+          </button>
+          <button class="secondary-btn" type="button" onclick="exportToCSV()" style="margin-top: 1rem;">
+             <i class="fa-solid fa-file-csv"></i> Save CSV
+          </button>
+        </div>
+
+        <div class="result-card" id="multiResultCard" style="display:none; text-align: left;">
+          <span class="result-label" style="text-align:center;">Results</span>
+          <div class="result-list" id="multiOutput"></div>
+        </div>
+      </section>
+
+      <div class="footer-link">
+        Part of <a href="https://usamaahmad360.github.io/Usama-s-Portfolio/">Usama’s Portfolio</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // --- Navbar Logic ---
+    (function () {
+      const navToggle = document.getElementById('navToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      const navIcon = document.getElementById('navIcon');
+      const topNav = document.getElementById('topNav');
+
+      function closeMobileNav() {
+        if (!mobileNav.classList.contains('hidden')) {
+          mobileNav.classList.add('hidden');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navIcon.classList.replace('fa-xmark', 'fa-bars');
+        }
+      }
+
+      navToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('hidden');
+        const isOpen = !mobileNav.classList.contains('hidden');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navIcon.classList.toggle('fa-bars', !isOpen);
+        navIcon.classList.toggle('fa-xmark', isOpen);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!topNav.contains(e.target)) closeMobileNav();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileNav();
+      });
+    })();
+
+    // --- Tab Logic ---
+    const tabs = ["generator", "custom", "strength", "stronger", "multi"];
+    function showTab(id) {
+      tabs.forEach(t => {
+        const el = document.getElementById(t);
+        if (el) el.classList.toggle("active", t === id);
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.setAttribute('aria-selected', btn.getAttribute('data-tab') === id);
+      });
+    }
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => showTab(btn.getAttribute('data-tab')));
+    });
+
+    // --- Core Logic ---
+    let lastPassword = '';
+
+    function generateRandomPassword(length, sym, num, up, low, avoid) {
+      let chars = '';
+      if (low) chars += 'abcdefghijklmnopqrstuvwxyz';
+      if (up) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      if (num) chars += '0123456789';
+      if (sym) chars += '!@#$%^&*()-_=+[{]};:<>?/';
+      if (avoid) chars = chars.replace(/[l1O0]/g, '');
+
+      if (!chars) return '';
+      
+      const cryptoObj = window.crypto || window.msCrypto;
+      const useCrypto = !!cryptoObj?.getRandomValues;
+      
+      let pass = '';
+      for (let i = 0; i < length; i++) {
+        if (useCrypto) {
+          const arr = new Uint32Array(1);
+          cryptoObj.getRandomValues(arr);
+          pass += chars.charAt(arr[0] % chars.length);
+        } else {
+          pass += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+      }
+      return pass;
+    }
+
+    async function copyToClipboard(text, btnId) {
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = document.getElementById(btnId);
+        if(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+            btn.style.borderColor = 'var(--accent)';
+            btn.style.color = 'var(--accent)';
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }, 2000);
+        }
+      } catch(e) { console.error(e); }
+    }
+
+    // 1. Quick Generator
+    document.getElementById('quickGenerateBtn').addEventListener('click', () => {
+      const length = Math.max(8, Math.min(64, +document.getElementById('quickLength').value || 16));
+      const s = document.getElementById('quickSymbols').checked;
+      const n = document.getElementById('quickNumbers').checked;
+      const u = document.getElementById('quickUppercase').checked;
+      
+      const pw = generateRandomPassword(length, s, n, u, true, false); // Always lowercase enabled for quick
+      if (!pw) {
+        alert('Select at least one option!');
+        return;
+      }
+      lastPassword = pw;
+      const disp = document.getElementById('passwordDisplay');
+      disp.textContent = pw;
+      disp.parentElement.classList.add('flash');
+      setTimeout(() => disp.parentElement.classList.remove('flash'), 300);
+    });
+
+    document.getElementById('quickCopyBtn').addEventListener('click', () => copyToClipboard(lastPassword, 'quickCopyBtn'));
+
+    // 2. Custom Generator
+    let customPasswords = [];
+    window.generateCustomPassword = function() {
+       const len = Math.max(8, Math.min(64, +document.getElementById('length').value || 16));
+       const count = Math.max(1, Math.min(100, +document.getElementById('numPasswords').value || 5));
+       const s = document.getElementById('symbols').checked;
+       const n = document.getElementById('numbers').checked;
+       const u = document.getElementById('uppercase').checked;
+       const l = document.getElementById('lowercase').checked;
+       const a = document.getElementById('avoidSimilar').checked;
+
+       if(!s && !n && !u && !l) { alert('Select at least one character type.'); return; }
+
+       customPasswords = [];
+       for(let i=0; i<count; i++) {
+         customPasswords.push(generateRandomPassword(len, s, n, u, l, a));
+       }
+
+       const container = document.getElementById('customResultCard');
+       const output = document.getElementById('customOutput');
+       const copyBtn = document.getElementById('customCopyFirst');
+
+       container.style.display = 'block';
+       output.innerHTML = `<ol>${customPasswords.map(p => `<li>${p}</li>`).join('')}</ol>`;
+       copyBtn.style.display = 'flex';
+    };
+
+    document.getElementById('customCopyFirst').addEventListener('click', () => {
+        if(customPasswords.length > 0) copyToClipboard(customPasswords[0], 'customCopyFirst');
+    });
+
+    // 3. Strength
+    window.checkStrength = function() {
+       const pw = document.getElementById('passwordToCheck').value;
+       const res = document.getElementById('strengthResult');
+       if(!pw) { res.textContent = '--'; res.className = 'result-value'; return; }
+
+       let score = 0;
+       if(pw.length >= 12) score++;
+       if(pw.length >= 16) score++;
+       if(/[A-Z]/.test(pw)) score++;
+       if(/[0-9]/.test(pw)) score++;
+       if(/[^A-Za-z0-9]/.test(pw)) score++;
+
+       if(score >= 5) {
+           res.textContent = 'Excellent';
+           res.className = 'result-value strength-strong';
+           res.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Strong';
+       } else if (score >= 3) {
+           res.textContent = 'Medium';
+           res.className = 'result-value strength-medium';
+           res.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Medium';
+       } else {
+           res.textContent = 'Weak';
+           res.className = 'result-value strength-weak';
+           res.innerHTML = '<i class="fa-solid fa-thumbs-down"></i> Weak';
+       }
+    };
+
+    // 4. Improve
+    window.makeStrongerNow = function() {
+       let pw = document.getElementById('passwordToImprove').value.trim();
+       if(!pw) return;
+
+       // Toggle case
+       let newPw = pw.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+       
+       // Add entropy
+       const syms = '!@#$%^&*';
+       newPw = newPw.charAt(0).toUpperCase() + newPw.slice(1);
+       newPw += syms[Math.floor(Math.random()*syms.length)];
+       newPw += Math.floor(Math.random() * 1000);
+
+       document.getElementById('improvedDisplay').textContent = newPw;
+       document.getElementById('passwordToImprove').value = newPw; // update input
+    };
+
+    document.getElementById('improveCopy').addEventListener('click', () => {
+        const txt = document.getElementById('improvedDisplay').textContent;
+        copyToClipboard(txt, 'improveCopy');
+    });
+
+    // 5. Multi
+    let multiData = [];
+    window.generatePasswords = function() {
+       const websites = document.getElementById('websitesInput').value.trim().split('\n').filter(Boolean);
+       if(!websites.length) { alert('Enter at least one website.'); return; }
+       
+       const len = +document.getElementById('multiLength').value || 16;
+       const s = document.getElementById('multiSymbols').checked;
+       const n = document.getElementById('multiNumbers').checked;
+       const u = document.getElementById('multiUppercase').checked;
+       const a = document.getElementById('multiAvoidSimilar').checked;
+
+       multiData = websites.map(w => ({
+           site: w.trim(),
+           pass: generateRandomPassword(len, s, n, u, true, a)
+       }));
+
+       document.getElementById('multiResultCard').style.display = 'block';
+       document.getElementById('multiOutput').innerHTML = 
+         `<ol>${multiData.map(d => `<li><strong>${d.site}:</strong> ${d.pass}</li>`).join('')}</ol>`;
+    };
+
+    window.exportToCSV = function() {
+       if(!multiData.length) { alert('Generate first!'); return; }
+       const csv = "Website,Password\n" + multiData.map(d => `${d.site},${d.pass}`).join('\n');
+       const blob = new Blob([csv], { type: 'text/csv' });
+       const url = URL.createObjectURL(blob);
+       const a = document.createElement('a');
+       a.href = url;
+       a.download = 'passwords.csv';
+       a.click();
+    };
+
+    // Init
+    document.getElementById('quickGenerateBtn').click();
+  </script>
 </body>
 </html>
