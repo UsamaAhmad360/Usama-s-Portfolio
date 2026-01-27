@@ -3,8 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modern URL Shortener</title>
+  <title>URL Shortener | Usama's Projects</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Shorten long URLs instantly with a fast, modern URL Shortener powered by TinyURL. Built by Usama Ahmad as part of Usama's Projects." />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Usama Ahmad" />
+  <meta name="theme-color" content="#121826" />
+
+  <!-- Favicon (Usama's Portfolio) -->
+  <link rel="icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" sizes="any" />
+  <link rel="shortcut icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Usama's Projects" />
+  <meta property="og:title" content="URL Shortener | Usama's Projects" />
+  <meta property="og:description" content="Shorten long URLs instantly with a fast, modern URL Shortener powered by TinyURL." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="URL Shortener | Usama's Projects" />
+  <meta name="twitter:description" content="Shorten long URLs instantly with a fast, modern URL Shortener powered by TinyURL." />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "URL Shortener",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "Shorten long URLs instantly with a fast, modern URL Shortener powered by TinyURL.",
+      "author": {
+        "@type": "Person",
+        "name": "Usama Ahmad",
+        "url": "https://usamaahmad360.github.io/Usama-s-Portfolio/"
+      }
+    }
+  </script>
+
+  <!-- Tailwind CSS (required) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     :root {
       --bg: #121826;
@@ -16,9 +59,7 @@
       --button-hover: #00a8e0;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -26,10 +67,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     .app-container {
@@ -38,7 +76,7 @@
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
       max-width: 420px;
-      width: 90%;
+      width: 100%;
       text-align: center;
     }
 
@@ -56,6 +94,11 @@
       background: var(--input);
       color: var(--text);
       font-size: 16px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 0 3px rgba(0, 194, 255, 0.22);
     }
 
     .action-btn {
@@ -85,58 +128,163 @@
       text-decoration: none;
     }
 
-    button i {
-      margin-right: 6px;
-    }
+    button i { margin-right: 6px; }
 
     @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5em;
-      }
-
-      .action-btn {
-        padding: 10px 16px;
-        font-size: 13px;
-      }
+      h1 { font-size: 1.5em; }
+      .action-btn { padding: 10px 16px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
+  <!-- Navbar (mirrors the look/behavior used across the referenced project pages) -->
+  <nav id="topNav" class="fixed top-0 left-0 right-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-slate-700/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="h-16 flex items-center justify-between">
+        <a class="flex items-center gap-2 text-slate-100 font-semibold tracking-wide" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">
+          <span class="w-9 h-9 rounded-xl bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center text-cyan-300">
+            <i class="fa-solid fa-code"></i>
+          </span>
+          <span class="hidden sm:inline">Usama's Projects</span>
+          <span class="sm:hidden">Projects</span>
+        </a>
 
-  <div class="app-container">
-    <h1><i class="fa-solid fa-link"></i> URL Shortener</h1>
-    <input type="text" id="urlInput" placeholder="Enter URL to shorten" />
-    <button class="action-btn" onclick="createShortUrl()">
-      <i class="fa-solid fa-scissors"></i> Shorten URL
-    </button>
-    <div class="result" id="shortenedOutput"></div>
-  </div>
+        <div class="hidden md:flex items-center gap-2">
+          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html">
+            <i class="fa-solid fa-key"></i> Password Generator
+          </a>
+          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+            <i class="fa-solid fa-qrcode"></i> QR Generator
+          </a>
+          <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
+            <i class="fa-solid fa-link"></i> URL Shortener
+          </a>
+        </div>
 
+        <button id="navToggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/60 bg-slate-900/40 text-slate-100 hover:bg-slate-800/60 transition" aria-label="Open menu" aria-expanded="false">
+          <i id="navIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
 
+    <div id="mobileNav" class="md:hidden hidden border-t border-slate-700/40">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
+        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html">
+          <i class="fa-solid fa-key"></i> Password Generator
+        </a>
+        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+          <i class="fa-solid fa-qrcode"></i> QR Generator
+        </a>
+        <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
+          <i class="fa-solid fa-link"></i> URL Shortener
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <main class="min-h-screen flex items-center justify-center px-4" style="padding-top: 88px; padding-bottom: 28px;">
+    <div class="app-container" itemscope itemtype="https://schema.org/WebApplication">
+      <h1 itemprop="name"><i class="fa-solid fa-link"></i> URL Shortener</h1>
+      <p class="text-slate-300 text-sm -mt-3 mb-4" itemprop="description">Paste a long link and get a short, shareable URL in seconds.</p>
+
+      <label for="urlInput" class="sr-only">Enter URL to shorten</label>
+      <input type="text" id="urlInput" placeholder="Enter URL to shorten" autocomplete="off" inputmode="url" />
+      <button class="action-btn" onclick="createShortUrl()" aria-label="Shorten the entered URL">
+        <i class="fa-solid fa-scissors"></i> Shorten URL
+      </button>
+      <div class="result" id="shortenedOutput" aria-live="polite"></div>
+
+      <p class="text-slate-400 text-xs mt-4">Powered by TinyURL • Part of <a class="text-cyan-300 hover:underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">Usama’s Portfolio</a></p>
+    </div>
+  </main>
 
   <script>
+    // Navbar toggle (mobile)
+    (function () {
+      const navToggle = document.getElementById('navToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      const navIcon = document.getElementById('navIcon');
+      const topNav = document.getElementById('topNav');
+
+      function closeMobileNav() {
+        if (!mobileNav || mobileNav.classList.contains('hidden')) return;
+        mobileNav.classList.add('hidden');
+        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+        if (navIcon) {
+          navIcon.classList.remove('fa-xmark');
+          navIcon.classList.add('fa-bars');
+        }
+      }
+
+      navToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('hidden');
+        const isOpen = !mobileNav.classList.contains('hidden');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        if (navIcon) {
+          navIcon.classList.toggle('fa-bars', !isOpen);
+          navIcon.classList.toggle('fa-xmark', isOpen);
+        }
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!topNav) return;
+        if (!topNav.contains(e.target)) closeMobileNav();
+      });
+
+      // Close after selecting a link (mobile)
+      mobileNav?.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a) closeMobileNav();
+      });
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileNav();
+      });
+    })();
+
     async function createShortUrl() {
-      const inputUrl = document.getElementById("urlInput").value.trim();
+      const inputEl = document.getElementById("urlInput");
+      const inputUrl = inputEl.value.trim();
       const output = document.getElementById("shortenedOutput");
 
       output.innerHTML = "";
 
       if (!inputUrl) {
+        inputEl.focus();
         alert("Please enter a valid URL.");
         return;
       }
 
+      // Basic URL normalization (helps UX + prevents obvious mistakes)
+      let normalized = inputUrl;
+      if (!/^https?:\/\//i.test(normalized)) {
+        normalized = "https://" + normalized;
+      }
+
       try {
-        const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(inputUrl)}`);
+        // Validate URL format
+        try {
+          new URL(normalized);
+        } catch {
+          inputEl.focus();
+          alert("That doesn't look like a valid URL.");
+          return;
+        }
+
+        const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(normalized)}`);
         const shortUrl = await res.text();
 
         // Show shortened URL + Copy button
         output.innerHTML = `
-          <p><strong>Shortened URL:</strong></p>
-          <a href="${shortUrl}" target="_blank">
-            <i class="fa-solid fa-link"></i> ${shortUrl}
+          <p class="text-slate-200"><strong>Shortened URL:</strong></p>
+          <a href="${shortUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open shortened URL in a new tab">
+            <i class="fa-solid fa-link"></i> <span>${shortUrl}</span>
           </a><br/>
-          <button class="action-btn" onclick="copyShortenedUrl('${shortUrl}')">
+          <button class="action-btn" onclick="copyShortenedUrl('${shortUrl.replace(/'/g, "\\'")}')" aria-label="Copy shortened URL">
             <i class="fa-solid fa-copy"></i> Copy URL
           </button>
         `;
@@ -152,6 +300,11 @@
         .then(() => alert("✅ Short URL copied to clipboard!"))
         .catch(() => alert("❌ Failed to copy URL."));
     }
+
+    // Allow Enter key to shorten
+    document.getElementById('urlInput')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') createShortUrl();
+    });
   </script>
 </body>
 </html>
