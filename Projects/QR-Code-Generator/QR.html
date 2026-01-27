@@ -3,188 +3,490 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modern QR Code Generator</title>
+  <title>QR Code Generator | Usama's Projects</title>
+
+  <!-- Favicon links -->
+  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+
+  <!-- SEO -->
+  <meta name="description" content="Generate high-quality QR codes instantly. Free, secure, and runs entirely in your browser. Download or copy your QR codes with ease." />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Usama Ahmad" />
+  <meta name="theme-color" content="#0f172a" />
+  
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Usama's Projects" />
+  <meta property="og:title" content="QR Code Generator | Usama's Projects" />
+  <meta property="og:description" content="Generate high-quality QR codes instantly. Free, secure, and runs entirely in your browser." />
+  <meta property="og:url" content="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QR Code Generator | Usama's Projects" />
+  <meta name="twitter:description" content="Generate high-quality QR codes instantly. Free, secure, and runs entirely in your browser." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" sizes="any" />
+  <link rel="shortcut icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Icons & Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- QR Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <style>
     :root {
-      --bg-dark: #121826;
-      --container-dark: #1f2937;
-      --accent: #00c2ff;
-      --text-light: #f1f5f9;
-      --input-bg: #273549;
-      --button-bg: #00c2ff;
-      --button-hover: #00a8e0;
-    }
-
-    * {
-      box-sizing: border-box;
+      --bg-dark: #0f172a;
+      --container-dark: #1e293b;
+      --accent: #06b6d4; /* Cyan-500 */
+      --accent-hover: #0891b2; /* Cyan-600 */
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --input-bg: #334155;
+      --border-color: #475569;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: var(--bg-dark);
-      color: var(--text-light);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
     }
 
-    .container {
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    .main-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+      padding-bottom: 40px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .app-container {
       background-color: var(--container-dark);
-      padding: 30px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      max-width: 400px;
-      width: 90%;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
       text-align: center;
     }
 
+    @media (min-width: 640px) {
+      .app-container { padding: 2rem; }
+    }
+
     h1 {
-      color: var(--accent);
-      font-size: 1.8em;
-      margin-bottom: 20px;
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+      font-size: 1.75rem;
+      background: linear-gradient(to right, #22d3ee, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
+      padding: 0.85rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
       background-color: var(--input-bg);
-      color: var(--text-light);
-      font-size: 16px;
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s;
+      margin-bottom: 1.25rem;
     }
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 480px) {
+      .btn-group { grid-template-columns: 1.5fr 1fr; }
     }
 
     button {
-      background-color: var(--button-bg);
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #000;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: none;
     }
 
-    button:hover {
-      background-color: var(--button-hover);
+    .primary-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #0f172a;
+      box-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.2);
     }
 
-    #qrcode {
-      margin-top: 10px;
+    .primary-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
     }
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5em;
-      }
+    .primary-btn:active { transform: translateY(0); }
 
-      input[type="text"] {
-        font-size: 14px;
-      }
-
-      button {
-        padding: 10px 16px;
-        font-size: 13px;
-      }
+    .secondary-btn {
+      background: rgba(51, 65, 85, 0.5);
+      color: var(--text-muted);
+      border: 1px solid transparent;
     }
+
+    .secondary-btn:hover {
+      background: rgba(51, 65, 85, 0.8);
+      color: var(--text-main);
+    }
+
+    .actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    #qrcode-container {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 0 auto;
+      width: fit-content;
+      min-width: 200px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    /* Placeholder text inside QR box */
+    .qr-placeholder {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+    
+    #qrcode img {
+      display: block; /* Remove minimal gap */
+      max-width: 100%;
+      height: auto;
+    }
+    #qrcode canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footer-link {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-link a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer-link a:hover { text-decoration: underline; }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+
+    /* Mobile Nav Animation */
+    #mobileNav:not(.hidden) {
+      display: block;
+      animation: navFadeIn 0.2s ease-out;
+    }
+
+    @keyframes navFadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+   
+    /* Hide hamburger on desktop/tablet and show on mobile */
+@media (min-width: 640px) {
+  #navToggle {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  #navToggle {
+    display: inline-flex;
+  }
+}
+
+
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>QR Code Generator</h1>
-    <input type="text" id="text" placeholder="Enter text or URL" />
-    <div class="buttons">
-      <button onclick="generateQRCode()">Generate QR</button>
-      <button onclick="copyQRCode()">Copy QR Code</button>
-      <button onclick="downloadQRCode()">Download QR</button>
+   <!-- Navbar (shared across projects) -->
+  <nav id="topNav" class="fixed top-0 left-0 right-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-slate-700/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="h-16 flex items-center justify-between">
+        <a class="flex items-center gap-2 text-slate-100 font-semibold tracking-wide" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">
+          <span class="w-9 h-9 rounded-xl bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center text-cyan-300">
+            <i class="fa-solid fa-code"></i>
+          </span>
+          <span class="hidden sm:inline">Usama's Projects</span>
+          <span class="sm:hidden">Projects</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-2">
+          <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
+            <i class="fa-solid fa-key"></i> Password Toolkit
+          </a>
+          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+            <i class="fa-solid fa-qrcode"></i> QR Generator
+          </a>
+          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+            <i class="fa-solid fa-link"></i> URL Shortener
+          </a>
+        </div>
+
+        <button id="navToggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/60 bg-slate-900/40 text-slate-100 hover:bg-slate-800/60 transition" aria-label="Open menu" aria-expanded="false">
+          <i id="navIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
-    <div id="qrcode"></div>
-  </div>
+
+    <div id="mobileNav" class="md:hidden hidden border-t border-slate-700/40">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
+        <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
+          <i class="fa-solid fa-key"></i> Password Toolkit
+        </a>
+        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
+          <i class="fa-solid fa-qrcode"></i> QR Generator
+        </a>
+        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+          <i class="fa-solid fa-link"></i> URL Shortener
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-wrapper">
+    <div class="app-container">
+      <h1>QR Code Generator</h1>
+      <p class="subtitle">Create instant, secure QR codes for any link or text.</p>
+
+      <input type="text" id="text" placeholder="Enter URL or text (e.g. https://google.com)" autofocus />
+
+      <button class="primary-btn w-full mb-4" onclick="generateQRCode()">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate QR Code
+      </button>
+
+      <div id="qrcode-container">
+        <div id="qrcode"><span class="qr-placeholder">Preview will appear here</span></div>
+      </div>
+
+      <div class="actions-row">
+        <button class="secondary-btn" id="copyBtn" onclick="copyQRCode()" disabled>
+          <i class="fa-regular fa-copy"></i> Copy
+        </button>
+        <button class="secondary-btn" id="saveBtn" onclick="downloadQRCode()" disabled>
+          <i class="fa-solid fa-download"></i> Save
+        </button>
+      </div>
+
+      <div class="footer-link">
+        Part of <a href="https://usamaahmad360.github.io/Usama-s-Portfolio/">Usama’s Portfolio</a>
+      </div>
+    </div>
+  </main>
 
   <script>
+     // Navbar toggle (mobile)
+    (function () {
+      const navToggle = document.getElementById('navToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      const navIcon = document.getElementById('navIcon');
+      const topNav = document.getElementById('topNav');
+
+      function closeMobileNav() {
+        if (!mobileNav || mobileNav.classList.contains('hidden')) return;
+        mobileNav.classList.add('hidden');
+        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+        if (navIcon) {
+          navIcon.classList.remove('fa-xmark');
+          navIcon.classList.add('fa-bars');
+        }
+      }
+
+      navToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('hidden');
+        const isOpen = !mobileNav.classList.contains('hidden');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        if (navIcon) {
+          navIcon.classList.toggle('fa-bars', !isOpen);
+          navIcon.classList.toggle('fa-xmark', isOpen);
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!topNav) return;
+        if (!topNav.contains(e.target)) closeMobileNav();
+      });
+
+      mobileNav?.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a) closeMobileNav();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileNav();
+      });
+    })();
+
+    // --- QR Logic ---
+    const saveBtn = document.getElementById("saveBtn");
+    const copyBtn = document.getElementById("copyBtn");
+
+    function getQRCanvas() {
+      return document.querySelector("#qrcode canvas");
+    }
+
     function generateQRCode() {
       const text = document.getElementById("text").value.trim();
       const qrDiv = document.getElementById("qrcode");
-      qrDiv.innerHTML = "";
-
-      if (text) {
-        new QRCode(qrDiv, {
-          text: text,
-          width: 300,
-          height: 300,
-          colorDark: "#000000",
-          colorLight: "#ffffff", // White background for better scanning
-          correctLevel: QRCode.CorrectLevel.H
-        });
+      
+      if (!text) {
+        alert("Please enter some text or a URL.");
+        return;
       }
+
+      qrDiv.innerHTML = "";
+      
+      new QRCode(qrDiv, {
+        text: text,
+        width: 300,
+        height: 300,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // Enable buttons
+      saveBtn.disabled = false;
+      copyBtn.disabled = false;
     }
 
     async function copyQRCode() {
-      const qrDiv = document.getElementById("qrcode");
-      const canvas = qrDiv.querySelector("canvas");
+      const qrCanvas = getQRCanvas();
 
-      if (!canvas) {
+      if (!qrCanvas) {
         alert("Please generate a QR code first.");
         return;
       }
 
       try {
-        const blob = await new Promise(resolve =>
-          canvas.toBlob(resolve, "image/png")
-        );
+        qrCanvas.toBlob(async (blob) => {
+          if (!blob) throw new Error("Canvas to Blob failed");
+          
+          await navigator.clipboard.write([
+            new ClipboardItem({ [blob.type]: blob })
+          ]);
 
-        await navigator.clipboard.write([
-          new ClipboardItem({ [blob.type]: blob })
-        ]);
-
-        alert("✅ QR Code copied to clipboard!");
+          const originalContent = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = originalContent;
+          }, 2000);
+        }, "image/png");
       } catch (err) {
         console.error(err);
-        alert("❌ Unable to copy QR Code. Use the download button instead.");
+        alert("❌ Unable to copy QR Code. Your browser might not support this feature.");
       }
     }
 
     function downloadQRCode() {
-      const qrDiv = document.getElementById("qrcode");
-      const canvas = qrDiv.querySelector("canvas");
+      const qrCanvas = getQRCanvas();
 
-      if (!canvas) {
-        alert("Please generate a QR code first.");
+      if (!qrCanvas) {
+        alert("Please generate a QR code first!");
         return;
       }
 
-      // Add white padding (quiet zone)
       const padding = 20;
-      const size = canvas.width + padding * 2;
-      const paddedCanvas = document.createElement("canvas");
-      paddedCanvas.width = size;
-      paddedCanvas.height = size;
+      const size = qrCanvas.width + padding * 2;
 
-      const ctx = paddedCanvas.getContext("2d");
-      ctx.fillStyle = "#ffffff"; // White background
+      // Create export canvas
+      const exportCanvas = document.createElement("canvas");
+      exportCanvas.width = size;
+      exportCanvas.height = size;
+      const ctx = exportCanvas.getContext("2d");
+
+      // White background
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, size, size);
-      ctx.drawImage(canvas, padding, padding);
 
-      const link = document.createElement("a");
-      link.download = "qr_code.png";
-      link.href = paddedCanvas.toDataURL("image/png");
-      link.click();
+      // Draw QR with padding
+      ctx.drawImage(qrCanvas, padding, padding);
+
+      // Convert to blob (best for downloads)
+      exportCanvas.toBlob((blob) => {
+        if (!blob) {
+          alert("Failed to export QR code.");
+          return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+
+        a.href = url;
+        a.download = `qr-code-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, "image/png");
     }
   </script>
-
 </body>
 </html>
