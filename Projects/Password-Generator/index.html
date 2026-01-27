@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Password Toolkit | Usama's Projects</title>
 
-    <!-- Favicon links -->
+     <!-- Favicon links -->
   <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon.ico" type="image/x-icon">
   <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
   <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -264,6 +264,7 @@
 
     input[type="number"],
     input[type="text"],
+    input[type="password"],
     textarea {
       width: 100%;
       padding: 0.75rem;
@@ -279,6 +280,28 @@
     input:focus, textarea:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+    }
+    
+    .password-wrapper {
+        position: relative;
+    }
+    
+    .password-toggle-btn {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 1.1rem;
+        padding: 4px;
+        transition: color 0.2s;
+    }
+    
+    .password-toggle-btn:hover {
+        color: var(--text-main);
     }
 
     /* Checkboxes */
@@ -480,6 +503,9 @@
         <button class="tab-btn" type="button" data-tab="multi" role="tab" aria-selected="false">
           <i class="fa-solid fa-layer-group"></i> Bulk
         </button>
+        <button class="tab-btn" type="button" data-tab="leak" role="tab" aria-selected="false">
+          <i class="fa-solid fa-user-secret"></i> Leak Check
+        </button>
       </div>
 
       <!-- Generator -->
@@ -491,10 +517,12 @@
           </div>
           <div>
             <label class="field-label">Options</label>
-            <div class="checkbox-group" style="margin: 0.25rem 0 0;">
+            <div class="checkbox-group" style="margin: 0.25rem 0 0; gap: 0.75rem;">
               <label class="checkbox-container"><input type="checkbox" id="quickSymbols" checked> Symbols</label>
               <label class="checkbox-container"><input type="checkbox" id="quickNumbers" checked> Numbers</label>
-              <label class="checkbox-container"><input type="checkbox" id="quickUppercase" checked> Caps</label>
+              <label class="checkbox-container"><input type="checkbox" id="quickUppercase" checked> Uppercase</label>
+              <label class="checkbox-container"><input type="checkbox" id="quickLowercase" checked> Lowercase</label>
+              <label class="checkbox-container"><input type="checkbox" id="quickAvoidSimilar"> Avoid Similar</label>
             </div>
           </div>
         </div>
@@ -548,7 +576,9 @@
       <!-- Strength -->
       <section id="strength" class="tab-content" role="tabpanel">
         <label class="field-label" for="passwordToCheck">Password Analysis</label>
-        <input type="text" id="passwordToCheck" placeholder="Paste or type password..." autocomplete="off" />
+        <div class="password-wrapper">
+           <input type="text" id="passwordToCheck" placeholder="Paste or type password..." autocomplete="off" />
+        </div>
         <button class="primary-btn" type="button" onclick="checkStrength()">
           <i class="fa-solid fa-stethoscope"></i> Analyze Strength
         </button>
@@ -565,7 +595,9 @@
       <!-- Make Stronger -->
       <section id="stronger" class="tab-content" role="tabpanel">
         <label class="field-label" for="passwordToImprove">Weak Password</label>
-        <input type="text" id="passwordToImprove" placeholder="e.g. fluffycat" autocomplete="off" />
+        <div class="password-wrapper">
+            <input type="text" id="passwordToImprove" placeholder="e.g. fluffycat" autocomplete="off" />
+        </div>
         <button class="primary-btn" type="button" onclick="makeStrongerNow()">
           <i class="fa-solid fa-bolt"></i> Supercharge It
         </button>
@@ -613,6 +645,39 @@
         </div>
       </section>
 
+      <!-- Leak Check -->
+      <section id="leak" class="tab-content" role="tabpanel">
+        <div class="subtitle" style="text-align: left; margin-bottom: 1.5rem; border-left: 3px solid var(--accent); padding-left: 1rem; background: rgba(6, 182, 212, 0.05); padding: 1rem; border-radius: 0 8px 8px 0;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: var(--text-main); font-weight: 600;"><i class="fa-solid fa-shield-cat"></i> Privacy First</h3>
+          <p style="margin: 0; font-size: 0.9rem;">
+            Checks if your password appears in known data breaches using the <a href="https://haveibeenpwned.com/API/v3#PwnedPasswords" target="_blank" style="color: var(--accent);">k-Anonymity API</a>. Your password is never sent over the network—only a partial hash is used.
+          </p>
+        </div>
+        
+        <label class="field-label" for="leakPassword">Password to Check</label>
+        <div class="password-wrapper">
+            <input type="password" id="leakPassword" placeholder="Enter a password..." autocomplete="off" style="padding-right: 40px;" />
+            <button type="button" id="toggleLeakPassword" class="password-toggle-btn" aria-label="Toggle password visibility">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+        
+        <div class="row cols-2" style="margin-top: 1rem;">
+          <button class="primary-btn" type="button" onclick="checkLeak()" style="margin-top: 0;">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> Check Password
+          </button>
+          <a href="https://haveibeenpwned.com/" target="_blank" class="secondary-btn" style="text-decoration: none; margin-top: 0;">
+             <i class="fa-solid fa-envelope"></i> Check Email (External)
+          </a>
+        </div>
+
+        <div class="result-card" id="leakResultCard" style="display:none;" aria-live="polite">
+          <span class="result-label">Breach Status</span>
+          <div class="result-value" id="leakValue">--</div>
+          <div id="leakDetail" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.5;"></div>
+        </div>
+      </section>
+
       <div class="footer-link">
         Part of <a href="https://usamaahmad360.github.io/Usama-s-Portfolio/">Usama’s Portfolio</a>
       </div>
@@ -654,7 +719,7 @@
     })();
 
     // --- Tab Logic ---
-    const tabs = ["generator", "custom", "strength", "stronger", "multi"];
+    const tabs = ["generator", "custom", "strength", "stronger", "multi", "leak"];
     function showTab(id) {
       tabs.forEach(t => {
         const el = document.getElementById(t);
@@ -722,8 +787,10 @@
       const s = document.getElementById('quickSymbols').checked;
       const n = document.getElementById('quickNumbers').checked;
       const u = document.getElementById('quickUppercase').checked;
+      const l = document.getElementById('quickLowercase').checked;
+      const a = document.getElementById('quickAvoidSimilar').checked;
       
-      const pw = generateRandomPassword(length, s, n, u, true, false); // Always lowercase enabled for quick
+      const pw = generateRandomPassword(length, s, n, u, l, a);
       if (!pw) {
         alert('Select at least one option!');
         return;
@@ -852,9 +919,85 @@
        a.click();
     };
 
+    // 6. Leak Check
+    async function sha1(str) {
+      const enc = new TextEncoder();
+      const hash = await crypto.subtle.digest('SHA-1', enc.encode(str));
+      return Array.from(new Uint8Array(hash))
+        .map(v => v.toString(16).padStart(2, '0'))
+        .join('')
+        .toUpperCase();
+    }
+
+    // Toggle Password Visibility
+    document.getElementById('toggleLeakPassword').addEventListener('click', function() {
+        const input = document.getElementById('leakPassword');
+        const icon = this.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+
+    window.checkLeak = async function() {
+      const pw = document.getElementById('leakPassword').value;
+      const card = document.getElementById('leakResultCard');
+      const val = document.getElementById('leakValue');
+      const det = document.getElementById('leakDetail');
+      
+      if(!pw) { alert('Please enter a password.'); return; }
+
+      card.style.display = 'block';
+      val.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
+      val.className = 'result-value';
+      det.textContent = '';
+
+      try {
+        const hash = await sha1(pw);
+        const prefix = hash.substring(0, 5);
+        const suffix = hash.substring(5);
+
+        const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`);
+        if(!response.ok) throw new Error('API Error');
+        
+        const text = await response.text();
+        const lines = text.split('\n');
+        
+        let count = 0;
+        for(const line of lines) {
+           const [h, c] = line.split(':');
+           if(h.trim() === suffix) {
+             count = parseInt(c, 10);
+             break;
+           }
+        }
+
+        if(count > 0) {
+          val.textContent = 'Leaked!';
+          val.className = 'result-value strength-weak'; // Red color
+          val.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> LEAKED';
+          det.innerHTML = `This password has been seen <strong>${count.toLocaleString()}</strong> times in data breaches.<br>Do not use this password!`;
+        } else {
+          val.textContent = 'Safe';
+          val.className = 'result-value strength-strong'; // Green color
+          val.innerHTML = '<i class="fa-solid fa-shield-cat"></i> No Leaks Found';
+          det.textContent = 'This password was not found in the public database of leaked passwords.';
+        }
+
+      } catch (e) {
+        val.textContent = 'Error';
+        det.textContent = 'Could not connect to the database. Please try again.';
+      }
+    };
+
     // Init
     document.getElementById('quickGenerateBtn').click();
   </script>
 </body>
 </html>
-
