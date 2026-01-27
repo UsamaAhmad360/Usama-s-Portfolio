@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QR Code Generator | Usama's Projects</title>
 
-  <!-- Favicon links -->
-  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+  <!-- Favicon (Usama's Portfolio) -->
+  <link rel="icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" sizes="any" />
+  <link rel="shortcut icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://usamaahmad360.github.io/Usama-s-Portfolio/favicon.ico" />
 
   <!-- SEO -->
   <meta name="description" content="Generate high-quality QR codes instantly. Free, secure, and runs entirely in your browser. Download or copy your QR codes with ease." />
@@ -209,12 +209,6 @@
     
     #qrcode img {
       display: block; /* Remove minimal gap */
-      max-width: 100%;
-      height: auto;
-    }
-    #qrcode canvas {
-      max-width: 100%;
-      height: auto;
     }
 
     .footer-link {
@@ -228,25 +222,8 @@
       text-decoration: none;
     }
     .footer-link a:hover { text-decoration: underline; }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      filter: grayscale(1);
-    }
-
-    /* Mobile Nav Animation */
-    #mobileNav:not(.hidden) {
-      display: block;
-      animation: navFadeIn 0.2s ease-out;
-    }
-
-    @keyframes navFadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-   
-    /* Hide hamburger on desktop/tablet and show on mobile */
+    
+     /* Hide hamburger on desktop/tablet and show on mobile */
 @media (min-width: 640px) {
   #navToggle {
     display: none;
@@ -264,46 +241,46 @@
 </head>
 <body>
 
-   <!-- Navbar (shared across projects) -->
-  <nav id="topNav" class="fixed top-0 left-0 right-0 z-50 bg-slate-950/60 backdrop-blur-md border-b border-slate-700/40">
+  <!-- Navbar -->
+  <nav id="topNav" class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-700/50">
     <div class="max-w-6xl mx-auto px-4">
       <div class="h-16 flex items-center justify-between">
-        <a class="flex items-center gap-2 text-slate-100 font-semibold tracking-wide" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">
-          <span class="w-9 h-9 rounded-xl bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center text-cyan-300">
+        <a class="flex items-center gap-2 text-slate-100 font-semibold tracking-wide no-underline group" href="https://usamaahmad360.github.io/Usama-s-Portfolio/">
+          <span class="w-9 h-9 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-400/20 transition-colors">
             <i class="fa-solid fa-code"></i>
           </span>
-          <span class="hidden sm:inline">Usama's Projects</span>
-          <span class="sm:hidden">Projects</span>
+          <span class="hidden sm:inline group-hover:text-cyan-400 transition-colors">Usama's Projects</span>
+          <span class="sm:hidden group-hover:text-cyan-400 transition-colors">Projects</span>
         </a>
 
         <div class="hidden md:flex items-center gap-2">
-          <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
-            <i class="fa-solid fa-key"></i> Password Toolkit
+          <a class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition text-sm font-medium no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html">
+            <i class="fa-solid fa-key mr-1.5"></i> Password Toolkit
           </a>
-          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
-            <i class="fa-solid fa-qrcode"></i> QR Generator
+          <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 font-medium text-sm no-underline" href="#" aria-current="page">
+            <i class="fa-solid fa-qrcode mr-1.5"></i> QR Gen
           </a>
-          <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
-            <i class="fa-solid fa-link"></i> URL Shortener
+          <a class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition text-sm font-medium no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+            <i class="fa-solid fa-link mr-1.5"></i> URL Shortener
           </a>
         </div>
 
-        <button id="navToggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/60 bg-slate-900/40 text-slate-100 hover:bg-slate-800/60 transition" aria-label="Open menu" aria-expanded="false">
+        <button id="navToggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-700/60 bg-slate-900/40 text-slate-100 hover:bg-slate-800/60 transition cursor-pointer" aria-label="Menu" aria-expanded="false">
           <i id="navIcon" class="fa-solid fa-bars"></i>
         </button>
       </div>
     </div>
 
-    <div id="mobileNav" class="md:hidden hidden border-t border-slate-700/40">
+    <div id="mobileNav" class="md:hidden hidden border-t border-slate-700/50 bg-slate-950/95 backdrop-blur-xl">
       <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
-        <a class="px-3 py-2 rounded-lg bg-cyan-400/10 text-cyan-200 border border-cyan-300/20" href="#" aria-current="page">
-          <i class="fa-solid fa-key"></i> Password Toolkit
+        <a class="px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition font-medium flex items-center no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Password-Generator/index.html">
+          <i class="fa-solid fa-key w-6 text-center"></i> Password Toolkit
         </a>
-        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/QR-Code-Generator/QR.html">
-          <i class="fa-solid fa-qrcode"></i> QR Generator
+        <a class="px-3 py-2.5 rounded-lg bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 font-medium flex items-center no-underline" href="#" aria-current="page">
+          <i class="fa-solid fa-qrcode w-6 text-center"></i> QR Generator
         </a>
-        <a class="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/60 hover:text-white transition" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
-          <i class="fa-solid fa-link"></i> URL Shortener
+        <a class="px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition font-medium flex items-center no-underline" href="https://usamaahmad360.github.io/Usama-s-Portfolio/Projects/Link-Shortner/Link-Shortner.html">
+          <i class="fa-solid fa-link w-6 text-center"></i> URL Shortener
         </a>
       </div>
     </div>
@@ -325,10 +302,10 @@
       </div>
 
       <div class="actions-row">
-        <button class="secondary-btn" id="copyBtn" onclick="copyQRCode()" disabled>
+        <button class="secondary-btn" id="copyBtn" onclick="copyQRCode()">
           <i class="fa-regular fa-copy"></i> Copy
         </button>
-        <button class="secondary-btn" id="saveBtn" onclick="downloadQRCode()" disabled>
+        <button class="secondary-btn" onclick="downloadQRCode()">
           <i class="fa-solid fa-download"></i> Save
         </button>
       </div>
@@ -340,7 +317,7 @@
   </main>
 
   <script>
-     // Navbar toggle (mobile)
+    // --- Navbar Logic ---
     (function () {
       const navToggle = document.getElementById('navToggle');
       const mobileNav = document.getElementById('mobileNav');
@@ -348,12 +325,10 @@
       const topNav = document.getElementById('topNav');
 
       function closeMobileNav() {
-        if (!mobileNav || mobileNav.classList.contains('hidden')) return;
-        mobileNav.classList.add('hidden');
-        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-        if (navIcon) {
-          navIcon.classList.remove('fa-xmark');
-          navIcon.classList.add('fa-bars');
+        if (!mobileNav.classList.contains('hidden')) {
+          mobileNav.classList.add('hidden');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navIcon.classList.replace('fa-xmark', 'fa-bars');
         }
       }
 
@@ -362,20 +337,12 @@
         mobileNav.classList.toggle('hidden');
         const isOpen = !mobileNav.classList.contains('hidden');
         navToggle.setAttribute('aria-expanded', String(isOpen));
-        if (navIcon) {
-          navIcon.classList.toggle('fa-bars', !isOpen);
-          navIcon.classList.toggle('fa-xmark', isOpen);
-        }
+        navIcon.classList.toggle('fa-bars', !isOpen);
+        navIcon.classList.toggle('fa-xmark', isOpen);
       });
 
       document.addEventListener('click', (e) => {
-        if (!topNav) return;
         if (!topNav.contains(e.target)) closeMobileNav();
-      });
-
-      mobileNav?.addEventListener('click', (e) => {
-        const a = e.target.closest('a');
-        if (a) closeMobileNav();
       });
 
       document.addEventListener('keydown', (e) => {
@@ -384,108 +351,167 @@
     })();
 
     // --- QR Logic ---
-    const saveBtn = document.getElementById("saveBtn");
-    const copyBtn = document.getElementById("copyBtn");
-
-    function getQRCanvas() {
-      return document.querySelector("#qrcode canvas");
-    }
+    let qrObject = null; 
 
     function generateQRCode() {
       const text = document.getElementById("text").value.trim();
       const qrDiv = document.getElementById("qrcode");
       
       if (!text) {
-        alert("Please enter some text or a URL.");
+        alert("Please enter some text or a URL first.");
         return;
       }
 
-      qrDiv.innerHTML = "";
-      
-      new QRCode(qrDiv, {
-        text: text,
-        width: 300,
-        height: 300,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
+      qrDiv.innerHTML = ""; 
 
-      // Enable buttons
-      saveBtn.disabled = false;
-      copyBtn.disabled = false;
+      // Create new QR Code
+      try {
+        qrObject = new QRCode(qrDiv, {
+          text: text,
+          width: 256,
+          height: 256,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      } catch (e) {
+        console.error("QR Generation failed", e);
+        alert("Failed to generate QR code. Please try again.");
+      }
+    }
+
+    // Trigger generation on Enter key
+    document.getElementById("text").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        generateQRCode();
+      }
+    });
+
+    function getQRCanvasOrImg() {
+      const qrDiv = document.getElementById("qrcode");
+      // Try to find canvas first (qrcodejs usually creates one)
+      let canvas = qrDiv.querySelector("canvas");
+      let img = qrDiv.querySelector("img");
+      
+      // If neither, or if they are empty/loading, return null
+      if (!canvas && !img) return null;
+      
+      // If img src is empty, it's not ready
+      if (img && !img.src && !canvas) return null;
+
+      return { canvas, img };
     }
 
     async function copyQRCode() {
-      const qrCanvas = getQRCanvas();
-
-      if (!qrCanvas) {
-        alert("Please generate a QR code first.");
-        return;
-      }
-
-      try {
-        qrCanvas.toBlob(async (blob) => {
-          if (!blob) throw new Error("Canvas to Blob failed");
-          
-          await navigator.clipboard.write([
-            new ClipboardItem({ [blob.type]: blob })
-          ]);
-
-          const originalContent = copyBtn.innerHTML;
-          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-          setTimeout(() => {
-            copyBtn.innerHTML = originalContent;
-          }, 2000);
-        }, "image/png");
-      } catch (err) {
-        console.error(err);
-        alert("❌ Unable to copy QR Code. Your browser might not support this feature.");
-      }
-    }
-
-    function downloadQRCode() {
-      const qrCanvas = getQRCanvas();
-
-      if (!qrCanvas) {
+      const elements = getQRCanvasOrImg();
+      if (!elements) {
         alert("Please generate a QR code first!");
         return;
       }
 
+      const { canvas, img } = elements;
+
+      try {
+        let blob = null;
+
+        if (canvas) {
+           blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        } else if (img && img.src) {
+           const resp = await fetch(img.src);
+           blob = await resp.blob();
+        }
+
+        if (blob) {
+          // ClipboardItem with generic type
+          const item = new ClipboardItem({ [blob.type]: blob });
+          await navigator.clipboard.write([item]);
+          
+          const btn = document.getElementById("copyBtn");
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+          btn.style.color = '#22d3ee'; // Cyan
+          btn.style.borderColor = '#22d3ee';
+          setTimeout(() => {
+              btn.innerHTML = original;
+              btn.style.color = '';
+              btn.style.borderColor = '';
+          }, 2000);
+        } else {
+          throw new Error("Failed to create blob from QR code");
+        }
+      } catch (err) {
+        console.error("Copy failed:", err);
+        alert("Could not copy image automatically. Security restrictions may apply. Please right-click the QR image and select 'Copy Image'.");
+      }
+    }
+
+    function downloadQRCode() {
+      const elements = getQRCanvasOrImg();
+      if (!elements) {
+        alert("Please generate a QR code first!");
+        return;
+      }
+
+      const { canvas, img } = elements;
+      
+      // Prepare download canvas with padding
       const padding = 20;
-      const size = qrCanvas.width + padding * 2;
+      const size = 256 + (padding * 2);
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = size;
+      tempCanvas.height = size;
+      const ctx = tempCanvas.getContext("2d");
 
-      // Create export canvas
-      const exportCanvas = document.createElement("canvas");
-      exportCanvas.width = size;
-      exportCanvas.height = size;
-      const ctx = exportCanvas.getContext("2d");
-
-      // White background
+      // Fill white background
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, size, size);
 
-      // Draw QR with padding
-      ctx.drawImage(qrCanvas, padding, padding);
-
-      // Convert to blob (best for downloads)
-      exportCanvas.toBlob((blob) => {
-        if (!blob) {
-          alert("Failed to export QR code.");
-          return;
+      const finishDownload = () => {
+        try {
+          const link = document.createElement("a");
+          link.download = `qr-code-${Date.now()}.png`;
+          link.href = tempCanvas.toDataURL("image/png");
+          document.body.appendChild(link); // Required for Firefox sometimes
+          link.click();
+          document.body.removeChild(link);
+        } catch (e) {
+          console.error("Download failed:", e);
+          alert("Failed to download. Please right-click the image and save it manually.");
         }
+      };
 
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
+      const drawAndDownload = (source) => {
+        try {
+          ctx.drawImage(source, padding, padding, 256, 256);
+          finishDownload();
+        } catch (e) {
+          console.error("Draw failed:", e);
+          // Fallback: just download the source src if possible (no padding)
+          if (img && img.src) {
+             const link = document.createElement("a");
+             link.download = `qr-code-${Date.now()}.png`;
+             link.href = img.src;
+             link.click();
+          }
+        }
+      };
 
-        a.href = url;
-        a.download = `qr-code-${Date.now()}.png`;
-        document.body.appendChild(a);
-        a.click();
-
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, "image/png");
+      if (canvas) {
+        drawAndDownload(canvas);
+      } else if (img) {
+        if (img.complete && img.naturalHeight !== 0) {
+          drawAndDownload(img);
+        } else {
+          img.onload = () => drawAndDownload(img);
+          // Force reload if stuck?
+          if (!img.complete) {
+             setTimeout(() => {
+                if(img.complete) drawAndDownload(img);
+             }, 500);
+          }
+        }
+      }
     }
   </script>
 </body>
