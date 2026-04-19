@@ -1,238 +1,218 @@
-    // Three.js Scene Setup - Twinkling Stars
-    const canvas = document.getElementById('three-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    camera.position.z = 50;
-
-    // Create star texture
-    const starCanvas = document.createElement('canvas');
-    starCanvas.width = 32;
-    starCanvas.height = 32;
-    const starCtx = starCanvas.getContext('2d');
-    
-    // Draw star shape
-    starCtx.fillStyle = 'white';
-    starCtx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-      const x = 16 + Math.cos(angle) * 14;
-      const y = 16 + Math.sin(angle) * 14;
-      if (i === 0) starCtx.moveTo(x, y);
-      else starCtx.lineTo(x, y);
-    }
-    starCtx.closePath();
-    starCtx.fill();
-    
-    const starTexture = new THREE.CanvasTexture(starCanvas);
-
-    // Create twinkling stars
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 2000;
-    const posArray = new Float32Array(starsCount * 3);
-    const colorsArray = new Float32Array(starsCount * 3);
-    const sizesArray = new Float32Array(starsCount);
-    const twinklePhase = new Float32Array(starsCount);
-
-    // Vibrant star colors
-    const starColors = [
-      new THREE.Color(0x00d9ff), // cyan
-      new THREE.Color(0x0080ff), // blue
-      new THREE.Color(0x00fff9), // teal
-      new THREE.Color(0x00ff88), // green
-      new THREE.Color(0xffd700), // gold
-      new THREE.Color(0xff00ff), // magenta
-      new THREE.Color(0xffffff), // white
+ const projects = [
+      {
+        id: 1,
+        title: 'Memory Master',
+        description: 'Built an interactive browser game with dynamic difficulty scaling, smooth rendering, and a replay-friendly loop designed to keep players engaged.',
+        category: 'games',
+        featured: true,
+        tech: ['HTML', 'CSS', 'JavaScript', 'Levels'],
+        image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
+        imageAlt: 'High quality board game scene for Memory Master',
+        github: 'https://github.com/UsamaAhmad360/Memory-Master',
+        live: 'https://usamaahmad360.github.io/Memory-Master/',
+        date: 'Dec 2025',
+        why: 'Why it matters: turns a quick session into a useful memory workout that feels fun instead of repetitive.',
+        learned: 'What I learned: animation timing, state recovery, and keeping gameplay smooth across repeated rounds.',
+        meta: [{ label: 'Levels', value: 'Infinite' }, { label: 'Latency', value: '16ms' }, { label: 'Focus', value: 'Memory' }]
+      },
+      {
+        id: 2,
+        title: 'Math Master',
+        description: 'Built a fast-paced arithmetic challenge that sharpens calculation speed and accuracy under time pressure.',
+        category: 'games',
+        featured: true,
+        tech: ['HTML', 'CSS', 'JavaScript', 'Game Logic'],
+        image: 'https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?auto=format&fit=crop&w=1200&q=80',
+        imageAlt: 'High quality workspace image for Math Master',
+        github: 'https://github.com/UsamaAhmad360/Math-Master-Game',
+        live: 'https://usamaahmad360.github.io/Math-Master-Game/',
+        date: 'Jan 2026',
+        why: 'Why it matters: turns practice into a short, repeatable drill for students, founders, and developers alike.',
+        learned: 'What I learned: timer-driven state management and difficulty tuning that keeps the pace challenging.',
+        meta: [{ label: 'Modes', value: '4' }, { label: 'Difficulty', value: 'Adaptive' }, { label: 'Timer', value: 'Live' }]
+      },
+      {
+        id: 3,
+        title: 'LAN File Share',
+        description: 'Built a cross-device file sharing system that lets any browser on the same LAN transfer files without installation.',
+        category: 'tools',
+        featured: true,
+        tech: ['Python', 'Sockets', 'HTTP'],
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+        imageAlt: 'High quality networking hardware image for LAN File Share',
+        github: 'https://github.com/UsamaAhmad360/LAN-File-Share',
+        live: '',
+        date: 'Mar 2026',
+        why: 'Why it matters: removes install friction and makes file transfer feel instant on any device in the network.',
+        learned: 'What I learned: LAN communication, socket handling, and using HTTP as a simple browser-based delivery layer.',
+        meta: [{ label: 'License', value: 'MIT' }, { label: 'Cloud', value: 'None' }, { label: 'Sync', value: 'LAN' }]
+      },
+      {
+        id: 4,
+        title: 'Responsive Design Tester',
+        description: 'Developed a responsive testing tool that simulates multiple device viewports in real time so layouts can be checked without DevTools.',
+        category: 'tools',
+        featured: true,
+        tech: ['HTML', 'CSS', 'JavaScript'],
+        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
+        imageAlt: 'High quality coding workspace image for Responsive Design Tester',
+        github: 'https://github.com/UsamaAhmad360/Responsive-Design-Tester',
+        live: '',
+        date: 'Feb 2026',
+        why: 'Why it matters: speeds up layout QA by putting multiple breakpoints in one workspace.',
+        learned: 'What I learned: viewport orchestration, layout syncing, and building a smooth multi-screen preview flow.',
+        meta: [{ label: 'Viewports', value: '6+' }, { label: 'Setup', value: '0s' }, { label: 'Audit', value: 'Quick' }]
+      }
     ];
 
-    for (let i = 0; i < starsCount; i++) {
-      // Spread stars across the scene
-      posArray[i * 3] = (Math.random() - 0.5) * 300;
-      posArray[i * 3 + 1] = (Math.random() - 0.5) * 300;
-      posArray[i * 3 + 2] = (Math.random() - 0.5) * 300;
+    const scrollProgress = document.getElementById('scrollProgress');
+    const navbar = document.getElementById('navbar');
+    const navbarToggle = document.getElementById('navbarToggle');
+    const navbarMenu = document.getElementById('navbarMenu');
+    const navbarLinks = navbarMenu.querySelectorAll('a');
+    const projectTabs = document.querySelectorAll('.project-tab');
 
-      // Assign random colors
-      const color = starColors[Math.floor(Math.random() * starColors.length)];
-      colorsArray[i * 3] = color.r;
-      colorsArray[i * 3 + 1] = color.g;
-      colorsArray[i * 3 + 2] = color.b;
-
-      // Random size
-      sizesArray[i] = Math.random() * 3 + 1;
-      
-      // Random twinkle phase
-      twinklePhase[i] = Math.random() * Math.PI * 2;
+    function updateScrollProgress() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const value = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = value + '%';
     }
 
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    starsGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
-    starsGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1));
+    function updateNavState() {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
 
-    const starsMaterial = new THREE.PointsMaterial({
-      size: 3,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      map: starTexture,
-      blending: THREE.AdditiveBlending,
-    });
+      const sections = document.querySelectorAll('section[id]');
+      let currentId = 'home';
 
-    const starsMesh = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(starsMesh);
-
-    // Mouse movement and 3D position
-    let mouseX = 0;
-    let mouseY = 0;
-    let mouse3D = new THREE.Vector3();
-
-    document.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-      
-      // Convert 2D mouse to 3D world position
-      mouse3D.set(mouseX * 50, mouseY * 50, 0);
-    });
-
-    // Animation loop with twinkling
-    let time = 0;
-    function animate() {
-      requestAnimationFrame(animate);
-      time += 0.01;
-
-      // Slow rotation
-      starsMesh.rotation.y += 0.0005;
-      starsMesh.rotation.x += 0.0002;
-
-      // Twinkling and mouse repulsion effect
-      const positions = starsGeometry.attributes.position.array;
-      const sizes = starsGeometry.attributes.size.array;
-      
-      for (let i = 0; i < starsCount; i++) {
-        const i3 = i * 3;
-        
-        // Get star position
-        const starX = positions[i3];
-        const starY = positions[i3 + 1];
-        const starZ = positions[i3 + 2];
-        
-        // Calculate distance to mouse
-        const dx = starX - mouse3D.x;
-        const dy = starY - mouse3D.y;
-        const dz = starZ - mouse3D.z;
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        
-        // Apply repulsion force if close to mouse
-        const repulsionRadius = 30; // How far the effect reaches
-        const repulsionStrength = 0.5; // How strong the push is
-        
-        if (distance < repulsionRadius && distance > 0) {
-          const force = (1 - distance / repulsionRadius) * repulsionStrength;
-          
-          // Push stars away from mouse
-          positions[i3] += (dx / distance) * force;
-          positions[i3 + 1] += (dy / distance) * force;
-          positions[i3 + 2] += (dz / distance) * force;
-        }
-        
-        // Twinkling effect
-        const phase = twinklePhase[i];
-        const twinkle = Math.sin(time + phase) * 0.5 + 1;
-        sizes[i] = (Math.random() * 3 + 1) * twinkle;
-      }
-      
-      starsGeometry.attributes.position.needsUpdate = true;
-      starsGeometry.attributes.size.needsUpdate = true;
-
-      // Camera follows mouse
-      camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-      camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-
-    // Handle Window Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Star Trail Effect on Mouse Move - Enhanced Visibility
-    const trailColors = ['#00d9ff', '#0080ff', '#00f5ff', '#00fff9', '#00ff88', '#ffd700'];
-    document.addEventListener('mousemove', (e) => {
-      // Increased probability from 0.2 to 0.6 for more frequent stars
-      if (Math.random() < 0.6) {
-        const star = document.createElement('div');
-        star.innerHTML = '✦';
-        star.style.position = 'fixed';
-        star.style.left = e.clientX + 'px';
-        star.style.top = e.clientY + 'px';
-        // Increased size range from 10-30 to 20-40
-        star.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        star.style.color = trailColors[Math.floor(Math.random() * trailColors.length)];
-        star.style.pointerEvents = 'none';
-        star.style.zIndex = '9999';
-        star.style.opacity = '1';
-        // Increased duration from 1s to 1.5s
-        star.style.transition = 'all 1.5s ease-out';
-        // Enhanced glow with multiple shadow layers for more visibility
-        star.style.textShadow = `
-          0 0 10px currentColor,
-          0 0 20px currentColor,
-          0 0 30px currentColor,
-          0 0 40px currentColor
-        `;
-        star.style.filter = 'brightness(1.5)';
-        document.body.appendChild(star);
-        
-        setTimeout(() => {
-          star.style.opacity = '0';
-          star.style.transform = `scale(0.3) rotate(${Math.random() * 360}deg) translateY(-${Math.random() * 100 + 50}px)`;
-        }, 10);
-        
-        // Increased cleanup time from 1000ms to 1500ms to match duration
-        setTimeout(() => {
-          star.remove();
-        }, 1500);
-      }
-    });
-
-    // Scroll Progress Bar
-    window.addEventListener('scroll', () => {
-      const scrollProgress = document.getElementById('scrollProgress');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      scrollProgress.style.width = scrollPercent + '%';
-    });
-
-    // Fade-in on Scroll
-    const observerOptions = {
-      threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      sections.forEach(section => {
+        const top = section.offsetTop - 130;
+        const bottom = top + section.offsetHeight;
+        if (window.scrollY >= top && window.scrollY < bottom) {
+          currentId = section.id;
         }
       });
-    }, observerOptions);
 
-    document.querySelectorAll('.content-section').forEach(section => {
-      observer.observe(section);
+      navbarLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      });
+    }
+
+    function createProjectCard(project) {
+      const hasLiveLink = project.live && project.live.trim() !== '';
+
+      return `
+        <article class="project-card fade-in" data-category="${project.category}">
+          <div class="project-media">
+            <img src="${project.image}" alt="${project.imageAlt}" loading="lazy" decoding="async">
+            <div class="project-media-label">${hasLiveLink ? 'Live demo' : project.category}</div>
+          </div>
+          <div class="project-content">
+            ${project.featured ? '<span class="project-badge">Featured</span>' : ''}
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-description">${project.description}</p>
+            <div class="project-story">
+              <div class="project-story-row">
+                <div class="project-story-label">Why it matters</div>
+                <div class="project-story-value">${project.why}</div>
+              </div>
+              <div class="project-story-row">
+                <div class="project-story-label">What I learned</div>
+                <div class="project-story-value">${project.learned}</div>
+              </div>
+            </div>
+            <div class="project-tech">
+              ${project.tech.map(item => `<span class="tech-chip">${item}</span>`).join('')}
+            </div>
+            <div class="project-meta-grid">
+              ${project.meta.map(item => `
+                <div class="project-meta-item">
+                  <div class="project-meta-label">${item.label}</div>
+                  <div class="project-meta-value">${item.value}</div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="project-footer">
+              <span class="project-date">${project.date}</span>
+              <div class="project-links">
+                ${hasLiveLink ? `
+                  <a href="${project.live}" target="_blank" rel="noreferrer" class="project-link primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg>
+                    ${project.category === 'games' ? 'Play now' : 'Open demo'}
+                  </a>
+                ` : ''}
+                <a href="${project.github}" target="_blank" rel="noreferrer" class="project-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-6.24 0-1.38.48-2.535 1.26-3.435-.405-1.26.09-3.135.99-3.135 0 0 1.08.345 3.54 1.62 1.035-.285 2.145-.435 3.255-.435s2.22.15 3.255.435c2.46-1.29 3.54-1.62 3.54-1.62.9 0 1.395 1.875.99 3.135.78.9 1.26 2.055 1.26 3.435 0 4.92-2.805 5.94-5.475 6.24.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12C24 5.37 18.63 0 12 0z"></path></svg>
+                  Code
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function observeElements() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }
+
+    function renderProjects(filter = 'all') {
+      const grid = document.getElementById('projectGrid');
+      const filtered = filter === 'all' ? projects : projects.filter(project => project.category === filter);
+      grid.innerHTML = filtered.map(createProjectCard).join('');
+      observeElements();
+    }
+
+    window.addEventListener('scroll', () => {
+      updateScrollProgress();
+      updateNavState();
+    }, { passive: true });
+
+    navbarToggle.addEventListener('click', () => {
+      const isOpen = navbarMenu.classList.toggle('active');
+      navbarToggle.classList.toggle('active', isOpen);
+      navbarToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.classList.toggle('menu-open', isOpen);
     });
 
-    // Form Submission - Opens Gmail with pre-filled template
-    document.getElementById('emailForm').addEventListener('submit', (e) => {
-      e.preventDefault();
+    navbarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navbarMenu.classList.remove('active');
+        navbarToggle.classList.remove('active');
+        navbarToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        navbarMenu.classList.remove('active');
+        navbarToggle.classList.remove('active');
+        navbarToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      }
+    });
+
+    projectTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        projectTabs.forEach(item => item.classList.remove('active'));
+        tab.classList.add('active');
+        renderProjects(tab.dataset.category);
+      });
+    });
+	
+	
+	 // Form Submission - Opens Gmail with pre-filled template
+    document.getElementById('contactForm').addEventListener('submit', (event) => {
+      event.preventDefault();
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const message = document.getElementById('message').value;
@@ -252,162 +232,8 @@
       e.target.reset();
     });
 
-    // Mobile Menu Toggle
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenuToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProjects();
+      updateScrollProgress();
+      updateNavState();
     });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-        mobileMenuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      }
-    });
-
-    // Custom Star Cursor
-    const cursor = document.querySelector('.cursor');
-    
-    let cursorX = 0;
-    let cursorY = 0;
-
-    // Update cursor position on mouse move
-    document.addEventListener('mousemove', (e) => {
-      cursorX = e.clientX;
-      cursorY = e.clientY;
-      
-      // Update cursor position immediately
-      cursor.style.left = cursorX + 'px';
-      cursor.style.top = cursorY + 'px';
-    });
-
-    // Add hover effects on interactive elements
-    const hoverElements = document.querySelectorAll('a, button, input, textarea, .project-card, .stat-card, .skills-list li');
-    
-    hoverElements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        cursor.classList.add('cursor-hover');
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        cursor.classList.remove('cursor-hover');
-      });
-    });
-
-    // Add click animation
-    document.addEventListener('mousedown', () => {
-      cursor.classList.add('cursor-click');
-      setTimeout(() => {
-        cursor.classList.remove('cursor-click');
-      }, 300);
-    });
-
-    // Hide cursor on mobile/tablet
-    if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-      cursor.style.display = 'none';
-      document.body.style.cursor = 'default';
-    }
-
-    // Terminal Typing Animation
-    const terminalBody = document.getElementById('terminalBody');
-    const commands = [
-      { cmd: 'whoami', output: 'usama-ahmad' },
-      { cmd: 'pwd', output: '/home/usama/portfolio' },
-      { cmd: 'ls -la skills/', output: 'HTML5  CSS3  JavaScript  React  Node.js  Three.js' },
-      { cmd: 'cat about.txt', output: 'Computer Science Graduate | Web Developer | Creative Designer\n\nPassionate about building stunning, user-friendly web experiences.\nConstantly learning and pushing the boundaries of web development.' },
-      { cmd: 'echo $PASSION', output: 'Web Development & Innovation ✨' },
-      { cmd: 'neofetch', output: `<span class="terminal-ascii">╔═══════════════════════════╗
-║   USAMA AHMAD PORTFOLIO   ║
-╚═══════════════════════════╝</span>
-<span class="terminal-output info">OS:</span> <span class="terminal-output highlight">Web Developer</span>
-<span class="terminal-output info">Specialization:</span> <span class="terminal-output highlight">Front-End Development</span>
-<span class="terminal-output info">Technologies:</span> <span class="terminal-output highlight">6+ Skills</span>
-<span class="terminal-output info">Projects:</span> <span class="terminal-output highlight">3+ Completed</span>
-<span class="terminal-output info">Status:</span> <span class="terminal-output highlight">Ready to innovate</span>` }
-    ];
-
-    let currentCommandIndex = 0;
-    let currentCharIndex = 0;
-    let isTypingCommand = true;
-    let currentLine = null;
-
-    function typeTerminal() {
-      if (currentCommandIndex >= commands.length) {
-        // Add final cursor
-        const cursorEl = document.createElement('span');
-        cursorEl.className = 'terminal-cursor';
-        terminalBody.appendChild(cursorEl);
-        return;
-      }
-
-      const currentCmd = commands[currentCommandIndex];
-
-      if (isTypingCommand) {
-        // Create new line if needed
-        if (!currentLine) {
-          currentLine = document.createElement('div');
-          currentLine.className = 'terminal-line';
-          
-          const prompt = document.createElement('span');
-          prompt.className = 'terminal-prompt';
-          prompt.textContent = 'usama@portfolio:~$ ';
-          currentLine.appendChild(prompt);
-          
-          const commandSpan = document.createElement('span');
-          commandSpan.className = 'terminal-command';
-          currentLine.appendChild(commandSpan);
-          
-          terminalBody.appendChild(currentLine);
-        }
-
-        // Type command character by character
-        const commandSpan = currentLine.querySelector('.terminal-command');
-        if (currentCharIndex < currentCmd.cmd.length) {
-          commandSpan.textContent += currentCmd.cmd[currentCharIndex];
-          currentCharIndex++;
-          setTimeout(typeTerminal, 50); // Typing speed
-        } else {
-          // Command finished, show output
-          isTypingCommand = false;
-          currentCharIndex = 0;
-          currentLine = null;
-          setTimeout(typeTerminal, 200);
-        }
-      } else {
-        // Show output
-        const outputDiv = document.createElement('div');
-        outputDiv.className = 'terminal-output';
-        outputDiv.innerHTML = currentCmd.output;
-        terminalBody.appendChild(outputDiv);
-
-        // Move to next command
-        currentCommandIndex++;
-        isTypingCommand = true;
-        currentLine = null;
-        setTimeout(typeTerminal, 400);
-      }
-    }
-
-    // Start typing animation when terminal is in view
-    const terminalObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && currentCommandIndex === 0) {
-          setTimeout(typeTerminal, 500);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    terminalObserver.observe(document.getElementById('terminal'));
-  
