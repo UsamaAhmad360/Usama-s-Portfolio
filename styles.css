@@ -427,7 +427,7 @@
         .social-link:hover {
             background: var(--primary);
             color: var(--on-primary);
-            transform: translateY(-4px);
+            transform: translateY(6px);
         }
     .terminal-section,
     .discipline-section,
