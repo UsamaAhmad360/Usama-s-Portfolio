@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usama Ahmad | Neon Architect Portfolio</title>
-  <meta name="description" content="High-end developer portfolio showcasing playable games and practical tools">
-  <meta name="author" content="Usama Ahmad">
-  <meta name="theme-color" content="#151023">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Usama Ahmad | Cybersecurity Portfolio</title>
+ <meta name="description" content="Usama Ahmad — Cybersecurity portfolio focused on SOC monitoring, network defense, digital forensics, malware analysis and vulnerability assessment.">
+ <meta name="author" content="Usama Ahmad">
+ <meta name="theme-color" content="#151023">
 
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/favicon-16x16.png">
@@ -14,8 +14,8 @@
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/favicon/apple-touch-icon.png">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Usama Ahmad | Neon Architect Portfolio">
-  <meta property="og:description" content="High-end developer portfolio showcasing playable games and practical tools">
+  <meta property="og:title" content="Usama Ahmad | SOC Analyst & Digital Forensics Portfolio">
+  <meta property="og:description" content="Cybersecurity portfolio showcasing hands-on SOC monitoring, network defense, digital forensics, and malware analysis labs">
   <meta property="og:image" content="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/profile.png">
 
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -24,405 +24,110 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="scroll-progress" id="scrollProgress"></div>
-
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <div class="navbar-left">
-        <a href="#home" class="navbar-logo">U<span>sama Ahmad</span></a>
-        <ul class="navbar-menu" id="navbarMenu">
-          <li><a href="#home" class="active"><span class="nav-number">01</span>Home</a></li>
-          <li><a href="#about"><span class="nav-number">02</span>About</a></li>
-          <li><a href="#projects"><span class="nav-number">03</span>Projects</a></li>
-          <li><a href="#skills"><span class="nav-number">04</span>Skills</a></li>
-          <li><a href="#contact"><span class="nav-number">05</span>Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="navbar-right">
-        <a href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/Resume/resume.pdf" target="_blank" rel="noreferrer" class="btn btn-secondary">Resume</a>
-        <a href="#contact" class="btn btn-primary">Hire me</a>
-      </div>
-
-      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<div class="scanlines"></div>
+<div class="grid"></div>
+<header>
+  <nav class="nav">
+    <a class="logo" href="#home"><span>U</span> USAMA<span class="dim">.SEC</span></a>
+    <button class="menu" aria-label="Menu">☰</button>
+    <div class="links">
+      <a href="#home">01 Home</a><a href="#labs">02 Labs</a><a href="#skills">03 Skills</a><a href="#workflow">04 Workflow</a><a href="#contact">05 Contact</a>
+      <a class="resume" href="Resume/Usama_Ahmad_BSCS_CV.pdf" target="_blank">Resume ↗</a>
     </div>
   </nav>
+</header>
 
-  <main id="mainPortfolio">
-    <section class="hero" id="home">
-      <div class="hero-bg">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-      </div>
-
-      <div class="container">
-        <div class="hero-content">
-          <div class="availability-badge fade-in">
-            <span class="availability-dot"></span>
-            Available for new work
-          </div>
-
-          <h1 class="hero-title fade-in stagger-1">
-            Building <span class="highlight">Digital</span> Excellence with <span class="highlight">100%</span> Dedication
-          </h1>
-
-          <p class="hero-description fade-in stagger-2">
-            Computer Science graduate building browser games, developer tools, and LAN-first utilities that feel polished and useful.
-            I work across modern JavaScript and Python automation, shipping every project to GitHub.
-          </p>
-
-          <div class="hero-cta fade-in stagger-3">
-            <a href="#projects" class="btn btn-primary btn-lg">View My Work</a>
-            <a href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/Resume/resume.pdf" target="_blank" rel="noreferrer" class="btn btn-secondary btn-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v12.17l4.59-4.58L18 12l-6 6-6-6 1.41-1.41L12 15.17V3h0z"></path><path d="M5 19h14v2H5z"></path></svg>
-              Download Resume
-            </a>
-            <a href="#contact" class="btn btn-glass btn-lg">Get in touch</a>
-          </div>
-           <div class="hero-social">
-                        <a href="https://github.com/UsamaAhmad360" target="_blank" class="social-link" title="GitHub">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-6.24 0-1.38.48-2.535 1.26-3.435-.405-1.26.09-3.135.99-3.135 0 0 1.08.345 3.54 1.62 1.035-.285 2.145-.435 3.255-.435s2.22.15 3.255.435c2.46-1.29 3.54-1.62 3.54-1.62.9 0 1.395 1.875.99 3.135.78.9 1.26 2.055 1.26 3.435 0 4.92-2.805 5.94-5.475 6.24.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/usama-ahmad-a85401363/" target="_blank" class="social-link" title="LinkedIn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:usama.ahmad360@gmail.com" class="social-link" title="Email">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </a>
-                    </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="terminal-section">
-      <div class="container">
-        <div class="terminal-wrapper">
-          <div class="profile-section fade-in">
-            <div>
-              <p class="profile-label">Operator</p>
-              <h2 class="profile-name">Usama Ahmad</h2>
-            </div>
-            <div class="profile-status">
-              <span class="terminal-status-dot"></span>
-              Online
-            </div>
-          </div>
-
-          <div class="terminal-card fade-in stagger-1">
-            <div class="terminal-header">
-              <div class="terminal-dots">
-                <span class="terminal-dot red"></span>
-                <span class="terminal-dot yellow"></span>
-                <span class="terminal-dot green"></span>
-              </div>
-              <div class="terminal-status">
-                <span class="terminal-status-dot"></span>
-                ~ / projects.json
-              </div>
-            </div>
-
-            <div class="terminal-content">
-              <div class="terminal-line"><span class="terminal-prompt">$</span> whoami</div>
-              <div class="terminal-line">Usama Ahmad - Developer</div>
-              <div class="terminal-line" style="margin-top: 0.65rem;"><span class="terminal-prompt">$</span> cat projects.json</div>
-              <div class="terminal-line">{</div>
-              <div class="terminal-line">  <span class="code-key">"games"</span>: [<span class="code-string">"Memory Master"</span>, <span class="code-string">"Math Master"</span>],</div>
-              <div class="terminal-line">  <span class="code-key">"tools"</span>: [<span class="code-string">"LAN Share"</span>, <span class="code-string">"Responsive Tester"</span>],</div>
-              <div class="terminal-line">  <span class="code-key">"passion"</span>: <span class="code-string">"100%"</span></div>
-              <div class="terminal-line">}</div>
-              <div class="terminal-line" style="margin-top: 0.65rem;"><span class="terminal-prompt">$</span> <span class="cursor"></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="discipline-section">
-      <div class="container">
-        <div class="discipline-header fade-in">
-          <p class="discipline-number">01</p>
-          <h2 class="discipline-title">The Discipline</h2>
-          <p class="discipline-subtitle">Three principles that drive every line of code I ship - from browser experiences to practical tools.</p>
-        </div>
-
-        <div class="discipline-grid">
-          <div class="discipline-card fade-in stagger-1">
-            <p class="discipline-card-number">01</p>
-            <h3 class="discipline-card-title">DISCOVER</h3>
-            <p class="discipline-card-desc">Spot problems early. Every tool starts with a real workflow pain point worth fixing.</p>
-          </div>
-
-          <div class="discipline-card fade-in stagger-2">
-            <p class="discipline-card-number">02</p>
-            <h3 class="discipline-card-title">BUILD</h3>
-            <p class="discipline-card-desc">Move from idea to working artifact quickly, with clean code and practical shipping decisions.</p>
-          </div>
-
-          <div class="discipline-card fade-in stagger-3">
-            <p class="discipline-card-number">03</p>
-            <h3 class="discipline-card-title">REFINE</h3>
-            <p class="discipline-card-desc">Keep improving. Each commit sharpens the experience, performance, and polish.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats-section">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-card fade-in">
-            <div class="stat-value">5+</div>
-            <div class="stat-label">Projects Built</div>
-          </div>
-          <div class="stat-card fade-in stagger-1">
-            <div class="stat-value">5+</div>
-            <div class="stat-label">Categories</div>
-          </div>
-          <div class="stat-card fade-in stagger-2">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Dedication</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <div class="about-content">
-          <div class="about-image-wrapper fade-in">
-            <div class="about-image-decoration"></div>
-            <img src="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/profile.png" alt="Usama Ahmad" class="about-image">
-          </div>
-
-          <div class="about-text fade-in stagger-1">
-            <p class="about-section-number">02</p>
-            <h2 class="about-title">About Me</h2>
-            <p class="about-description">I'm a passionate Computer Science graduate specializing in web development. I build tools that make developers' lives easier.</p>
-            <p class="about-description">My work spans web development, Python automation, and clean responsive interfaces. I focus on maintainable code and practical results.</p>
-
-            <div class="about-details">
-              <div class="about-detail">
-                <span class="about-detail-icon">L</span>
-                <div>
-                  <div class="about-detail-label">Location</div>
-                  <div class="about-detail-value">Remote / Worldwide</div>
-                </div>
-              </div>
-              <div class="about-detail">
-                <span class="about-detail-icon">E</span>
-                <div>
-                  <div class="about-detail-label">Education</div>
-                  <div class="about-detail-value">CS Graduate</div>
-                </div>
-              </div>
-              <div class="about-detail">
-                <span class="about-detail-icon">F</span>
-                <div>
-                  <div class="about-detail-label">Focus</div>
-                  <div class="about-detail-value">Full-Stack Dev</div>
-                </div>
-              </div>
-              <div class="about-detail">
-                <span class="about-detail-icon">A</span>
-                <div>
-                  <div class="about-detail-label">Availability</div>
-                  <div class="about-detail-value">Open to Work</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section projects-section" id="projects">
-      <div class="container">
-        <div class="section-header fade-in">
-          <p class="section-number">03</p>
-          <h2 class="section-title">Portfolio</h2>
-          <p class="section-description">A curated set of work sourced live from github.com/UsamaAhmad360, with demos presented first so the value is obvious immediately.</p>
-        </div>
-
-        <div class="project-tabs fade-in stagger-1">
-          <button class="project-tab active" data-category="all">All <span class="project-tab-count">4</span></button>
-          <button class="project-tab" data-category="games">Games <span class="project-tab-count">2</span></button>
-          <button class="project-tab" data-category="tools">Tools <span class="project-tab-count">2</span></button>
-        </div>
-
-        <div class="project-grid" id="projectGrid"></div>
-      </div>
-    </section>
-
-    <section class="section skills-section" id="skills">
-      <div class="container">
-        <div class="skills-header fade-in">
-          <p class="section-number">04</p>
-          <h2 class="section-title">Expertise</h2>
-          <p class="section-description">The technologies and tools I reach for to bring ideas to life.</p>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-category fade-in">
-            <div class="skill-category-icon">GD</div>
-            <h3 class="skill-category-title">Game Development</h3>
-            <div class="skill-list">
-              <span class="skill-item">HTML5 Canvas</span>
-              <span class="skill-item">JavaScript</span>
-              <span class="skill-item">Game Logic</span>
-              <span class="skill-item">CSS Animations</span>
-            </div>
-          </div>
-
-          <div class="skill-category fade-in stagger-1">
-            <div class="skill-category-icon">AT</div>
-            <h3 class="skill-category-title">Tools & Automation</h3>
-            <div class="skill-list">
-              <span class="skill-item">Python</span>
-              <span class="skill-item">Node.js</span>
-              <span class="skill-item">Network Programming</span>
-              <span class="skill-item">CLI Tools</span>
-            </div>
-          </div>
-
-          <div class="skill-category fade-in stagger-2">
-            <div class="skill-category-icon">WD</div>
-            <h3 class="skill-category-title">Web Development</h3>
-            <div class="skill-list">
-              <span class="skill-item">HTML / CSS</span>
-              <span class="skill-item">JavaScript</span>
-              <span class="skill-item">Responsive Design</span>
-              <span class="skill-item">React</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="skills-terminal fade-in stagger-3" style="margin-top: 1.25rem;">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <span class="terminal-dot red"></span>
-              <span class="terminal-dot yellow"></span>
-              <span class="terminal-dot green"></span>
-            </div>
-            <div class="terminal-status">~ / skills.json</div>
-          </div>
-
-          <div class="terminal-content">
-            <div class="terminal-line"><span class="terminal-prompt">$</span> cat skills.json</div>
-            <div class="terminal-line">{</div>
-            <div class="terminal-line">  <span class="code-key">"languages"</span>: [<span class="code-string">"JavaScript"</span>, <span class="code-string">"Python"</span>, <span class="code-string">"HTML/CSS"</span>],</div>
-            <div class="terminal-line">  <span class="code-key">"frameworks"</span>: [<span class="code-string">"React"</span>, <span class="code-string">"Node.js"</span>, <span class="code-string">"Express"</span>],</div>
-            <div class="terminal-line">  <span class="code-key">"tools"</span>: [<span class="code-string">"Git"</span>, <span class="code-string">"VS Code"</span>, <span class="code-string">"Terminal"</span>],</div>
-            <div class="terminal-line">  <span class="code-key">"passion"</span>: <span class="code-string">"Infinity"</span></div>
-            <div class="terminal-line">}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact-section" id="contact">
-      <div class="container">
-        <div class="contact-header fade-in">
-          <p class="section-number">05</p>
-          <h2 class="section-title">Get in touch</h2>
-          <p class="section-description">Have a project in mind? Let's collaborate and build something worth shipping.</p>
-        </div>
-
-        <div class="contact-content">
-          <div class="contact-info">
-            <a href="mailto:usama.ahmad360@gmail.com" class="contact-card fade-in">
-              <div class="contact-card-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
-              </div>
-              <div>
-                <div class="contact-card-label">Email</div>
-                <div class="contact-card-value">usama.ahmad360@gmail.com</div>
-              </div>
-            </a>
-
-            <a href="https://github.com/UsamaAhmad360" target="_blank" rel="noreferrer" class="contact-card fade-in stagger-1">
-              <div class="contact-card-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-6.24 0-1.38.48-2.535 1.26-3.435-.405-1.26.09-3.135.99-3.135 0 0 1.08.345 3.54 1.62 1.035-.285 2.145-.435 3.255-.435s2.22.15 3.255.435c2.46-1.29 3.54-1.62 3.54-1.62.9 0 1.395 1.875.99 3.135.78.9 1.26 2.055 1.26 3.435 0 4.92-2.805 5.94-5.475 6.24.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12C24 5.37 18.63 0 12 0z"></path></svg>
-              </div>
-              <div>
-                <div class="contact-card-label">GitHub</div>
-                <div class="contact-card-value">github.com/UsamaAhmad360</div>
-              </div>
-            </a>
-
-            <a href="https://www.linkedin.com/in/usama-ahmad-a85401363/" target="_blank" rel="noreferrer" class="contact-card fade-in stagger-2">
-              <div class="contact-card-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
-              </div>
-              <div>
-                <div class="contact-card-label">LinkedIn</div>
-                <div class="contact-card-value">www.linkedin.com/in/usama-ahmad-a85401363</div>
-              </div>
-            </a>
-
-            <a href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/Resume/resume.pdf" target="_blank" rel="noreferrer" class="contact-card fade-in stagger-3">
-              <div class="contact-card-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
-              </div>
-              <div>
-                <div class="contact-card-label">Resume</div>
-                <div class="contact-card-value">Download PDF</div>
-              </div>
-            </a>
-          </div>
-
-          <form class="contact-form fade-in stagger-1" id="contactForm">
-            <div class="form-group">
-              <label class="form-label" for="name">Name</label>
-              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="email">Email</label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
-              <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <h3>Usama Ahmad</h3>
-          <p>Copyright 2026 - Built with passion and 100% dedication.<br>The Neon Architect design system.</p>
-        </div>
-        <ul class="footer-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="https://github.com/UsamaAhmad360" target="_blank" rel="noreferrer">GitHub</a></li>
-          <li><a href="https://raw.githubusercontent.com/UsamaAhmad360/Usama-s-Portfolio/main/Resume/resume.pdf" target="_blank" rel="noreferrer">Resume</a></li>
-        </ul>
-      </div>
+<main>
+<section id="home" class="hero wrap">
+  <div class="hero-copy">
+    <div class="status"><i></i> OPEN TO ENTRY-LEVEL SECURITY ROLES</div>
+    <p class="kicker">CYBERSECURITY / SOC / DFIR / NETWORK DEFENSE</p>
+    <h1>Defend.<br><span>Investigate.</span><br>Document.</h1>
+    <p class="lead">I'm <b>Usama Ahmad</b>, a BSCS graduate building hands-on cybersecurity capability through self-managed SOC, network defense, vulnerability assessment, digital forensics and malware-analysis labs.</p>
+    <div class="actions"><a class="btn primary" href="#labs">Explore security labs <b>↓</b></a><a class="btn" href="Resume/resume.pdf" target="_blank">View CV ↗</a></div>
+    <div class="quick"><span><b>BSCS</b><small>2025 Graduate</small></span><span><b>SOC</b><small>Wazuh + Sysmon</small></span><span><b>DFIR</b><small>Disk + Memory</small></span><span><b>IDS</b><small>Suricata</small></span></div>
+  </div>
+  <div class="terminal">
+    <div class="term-head"><div><i></i><i></i><i></i></div><span>usama@security-lab:~</span><b>LIVE</b></div>
+    <div class="term-body">
+      <p><em>$</em> whoami</p><h3>Usama Ahmad</h3>
+      <p><em>$</em> cat mission.txt</p>
+      <div class="output">detect threats<br>investigate evidence<br>harden infrastructure<br>write clear reports</div>
+      <p><em>$</em> systemctl status security-stack</p>
+      <div class="service"><span>● wazuh-manager</span><b>active</b></div>
+      <div class="service"><span>● suricata</span><b>active</b></div>
+      <div class="service"><span>● sysmon</span><b>collecting</b></div>
+      <p class="prompt"><em>$</em> <span class="cursor"></span></p>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<section id="labs" class="section wrap">
+  <div class="section-title"><div><small>02 / HANDS-ON CYBERSECURITY PROJECTS</small><h2>Security labs, not just tool lists.</h2></div><p>Projects below mirror the work documented in my CV and show how the tools fit into practical security workflows.</p></div>
+  <div class="lab-grid">
+    <article class="lab featured"><div class="lab-meta"><span>01</span><b>SOC / SIEM</b></div><h3>Home SOC & SIEM Lab</h3><p>Centralized Windows and Linux telemetry with Wazuh SIEM/XDR. Sysmon captures process, network and registry activity; FIM and custom rules surface unauthorized changes for alert triage and correlation.</p><div class="chips"><span>Wazuh</span><span>Sysmon</span><span>FIM</span><span>Alert Triage</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>02</span><b>DFIR</b></div><h3>Digital Forensics & Memory</h3><p>Investigated acquired disk and memory images, recovered deleted files, analyzed registry/browser artifacts and built timelines. Volatility was used to examine processes, injected code and malicious network connections.</p><div class="chips"><span>Autopsy</span><span>FTK Imager</span><span>Volatility</span><span>Chain of Custody</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>03</span><b>MALWARE</b></div><h3>Malware Analysis Lab</h3><p>Isolated analysis environment using FLARE-VM, VMware, Kali and INetSim. Performed static and dynamic analysis to identify packing, persistence, filesystem changes, callbacks and indicators of compromise.</p><div class="chips"><span>Ghidra</span><span>IDA Pro</span><span>x64dbg</span><span>PEStudio</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>04</span><b>NETWORK IDS</b></div><h3>Network IDS & Monitoring</h3><p>Integrated Suricata with Wazuh and authored custom signatures for scanning and malicious traffic patterns. Validated controlled port-scan and ICMP/DoS detections against Wireshark packet captures.</p><div class="chips"><span>Suricata</span><span>Wazuh</span><span>Wireshark</span><span>Custom Rules</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>05</span><b>NETWORK SECURITY</b></div><h3>Cisco Infrastructure Lab</h3><p>Built multi-device enterprise topologies in EVE-NG and Packet Tracer. Practiced segmentation, routing, redundancy and access hardening across VLANs, OSPF, RIP, STP/RSTP, EtherChannel, HSRP, ACLs, NAT, DHCP and SSH.</p><div class="chips"><span>Cisco IOS</span><span>OSPF</span><span>ACL</span><span>NAT</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>06</span><b>VULN ASSESSMENT</b></div><h3>Vulnerability Assessment Lab</h3><p>Scanned Windows Server systems with Nessus and Nmap, researched CVEs, assessed CVSS severity and produced remediation-focused vulnerability reports.</p><div class="chips"><span>Nessus</span><span>Nmap</span><span>CVE</span><span>CVSS</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+    <article class="lab"><div class="lab-meta"><span>07</span><b>OSINT / RECON</b></div><h3>DNS & Attack Surface Recon</h3><p>Mapped external attack surfaces through DNS enumeration, certificate-transparency data and technology fingerprinting to identify subdomains and publicly exposed services.</p><div class="chips"><span>Shodan</span><span>SecurityTrails</span><span>DNSRecon</span><span>crt.sh</span></div><a class="evidence-link" href="https://github.com/UsamaAhmad360?tab=repositories" target="_blank" rel="noreferrer">Browse GitHub repositories <span>↗</span></a></article>
+  </div>
+</section>
+
+<section id="workflow" class="section wrap">
+  <div class="section-title"><div><small>04 / SECURITY WORKFLOW</small><h2>From signal to evidence.</h2></div></div>
+  <div class="pipeline">
+    <div><span>01</span><strong>COLLECT</strong><small>Sysmon · Syslog · Network telemetry</small></div><b>→</b>
+    <div><span>02</span><strong>DETECT</strong><small>Wazuh · Suricata · Custom rules</small></div><b>→</b>
+    <div><span>03</span><strong>INVESTIGATE</strong><small>Wireshark · Volatility · Forensics</small></div><b>→</b>
+    <div><span>04</span><strong>ASSESS</strong><small>Nessus · Nmap · CVE / CVSS</small></div><b>→</b>
+    <div><span>05</span><strong>DOCUMENT</strong><small>Findings · IOCs · Remediation</small></div>
+  </div>
+</section>
+
+<section id="skills" class="section wrap">
+  <div class="section-title"><div><small>03 / TECHNICAL SKILLS</small><h2>My security toolkit.</h2></div></div>
+  <div class="skill-grid">
+    <article><span class="num">01</span><h3>SOC & Monitoring</h3><p>Wazuh SIEM/XDR · Log Collection & Analysis · Alert Triage · Event Correlation · Endpoint Monitoring · Incident Response Fundamentals</p></article>
+    <article><span class="num">02</span><h3>Digital Forensics</h3><p>Disk Imaging · Evidence Acquisition · Chain of Custody · Write Blocking · Hash Verification · Filesystem & Timeline Analysis · Deleted-File Recovery · Registry & Browser Artifacts</p></article>
+    <article><span class="num">03</span><h3>Memory & Malware</h3><p>Volatility · RAM Acquisition · Process Analysis · Hidden Process Detection · PE Analysis · Ghidra · IDA Pro · x64dbg · Persistence · IOC Identification</p></article>
+    <article><span class="num">04</span><h3>Network Defense</h3><p>Suricata IDS/IPS · Custom Detection Rules · Network Traffic Analysis · DoS Detection · Wireshark · TCP/IP · IPv4 · Subnetting</p></article>
+    <article><span class="num">05</span><h3>Vulnerability Assessment</h3><p>Nessus · Nmap · Vulnerability Scanning · CVE Research · CVSS · Risk Assessment · Vulnerability Reporting · Remediation</p></article>
+    <article><span class="num">06</span><h3>Recon & Email Security</h3><p>DNSRecon · DNSenum · Shodan · SecurityTrails · crt.sh · Wappalyzer · SMTP · DNS/MX · SPF · DKIM · DMARC · Header Analysis</p></article>
+  </div>
+  <div class="tool-cloud"><span>Autopsy</span><span>FTK Imager</span><span>PEStudio</span><span>CFF Explorer</span><span>INetSim</span><span>FLARE-VM</span><span>EVE-NG</span><span>GNS3</span><span>Packet Tracer</span><span>Kali Linux</span><span>Rocky Linux</span><span>Windows Server</span><span>VMware</span><span>Cisco IOS</span></div>
+</section>
+
+<section class="section education wrap">
+  <div class="edu"><small>EDUCATION</small><h2>BS Computer Science</h2><p>Virtual University of Pakistan</p><b>March 2025 · CGPA 3.21 / 4.0</b></div>
+  <div class="cert"><small>CERTIFICATIONS & TRAINING</small><p><b>CEH</b> — Training in progress</p><p><b>CHFI</b> — Exam passed; certification pending</p><p>Hands-on SOC, Network Defense & DFIR Lab Training</p></div>
+</section>
+
+<section id="contact" class="contact wrap">
+  <div><small>05 / CONTACT</small><h2>Let's talk security.</h2><p>Open to entry-level SOC Analyst, Network Security Analyst and Digital Forensics Analyst opportunities.</p></div>
+  <form class="contact-form" id="contact-form">
+    <label for="sender-name">Name</label>
+    <input id="sender-name" name="name" type="text" placeholder="Your name" required>
+    <label for="sender-email">Email</label>
+    <input id="sender-email" name="email" type="email" placeholder="you@example.com" required>
+    <label for="sender-message">Message</label>
+    <textarea id="sender-message" name="message" rows="5" placeholder="Tell me a little about your project or opportunity…" required></textarea>
+    <button class="btn primary" type="submit">Compose email in Gmail ↗</button>
+    <p class="form-note">Your message opens in Gmail for you to review and send. Nothing is submitted or stored on this site.</p>
+  </form>
+  <div class="contact-links">
+    <a href="mailto:mlkusama360@gmail.com"><span>Email</span><b>mlkusama360@gmail.com ↗</b></a>
+    <a href="https://github.com/UsamaAhmad360" target="_blank"><span>GitHub</span><b>github.com/UsamaAhmad360 ↗</b></a>
+    <a href="https://www.linkedin.com/in/usama-ahmad-a85401363/" target="_blank"><span>LinkedIn</span><b>Usama Ahmad ↗</b></a>
+    <a href="Resume/resume.pdf" target="_blank"><span>Resume</span><b>Open PDF ↗</b></a>
+  </div>
+</section>
+</main>
+<footer class="wrap"><span>USAMA AHMAD // CYBERSECURITY</span><span>© 2026 · BUILT FOR DEFENSE</span></footer>
+<script src="script.js"></script>
 </body>
 </html>
